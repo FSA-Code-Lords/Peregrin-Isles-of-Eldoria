@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// unlocked location of characters
+model Character_Location {
+  locationId  Int
+  locations   Location  @relation(fields: [locationId], references: [id])
+  characterId Int
+  character   Character @relation(fields: [characterId], references: [id])
+
+  @@id([locationId, characterId])
+}
+
+model Choice {
+  id              Int        @id @default(autoincrement())
+  name            String     @unique @db.VarChar(20)
+  action          String     @db.Text
+  result          String     @db.Text
+  locations       Location[]
+  choices         Choice[]   @relation("choices")
+  choicesRelation Choice[]   @relation("choices") // used to store many to manys
+}
+
+// do monsters need a current location??
+model Monster {
+  id       Int        @id @default(autoincrement())
+  name     String     @unique @db.VarChar(20)
+  hp       Int
+  atk      Int
+  dodge    Int
+  location Location[]
+}
+
+model Character {
+  id                Int                  @id @default(autoincrement())
+  name              String               @unique @db.VarChar(20)
+  hp                Int
+  atk               Int
+  dodge             Int
+  exp               Int
+  classId           Int
+  class             Class                @relation(fields: [classId], references: [id])
+  raceId            Int
+  race              Race                 @relation(fields: [raceId], references: [id])
+  currentLocationId Int
+  currentLocation   Location             @relation(fields: [currentLocationId], references: [id])
+  unlockedLocations Character_Location[]
+}
+
+model Location {
+  id                 Int                  @id @default(autoincrement())
+  name               String               @unique @db.VarChar(20)
+  description        String               @db.Text
+  characters         Character[]
+  character_location Character_Location[]
+  monsters           Monster[]
+  choices            Choice[]
+}
+
+model Class {
+  id          Int         @id @default(autoincrement())
+  name        String      @unique @db.VarChar(20)
+  hpChange    Int
+  atkChange   Int
+  dodgeChange Int
+  characters  Character[]
+}
+
+model Race {
+  id          Int         @id @default(autoincrement())
+  name        String      @unique @db.VarChar(20)
+  hpChange    Int
+  atkChange   Int
+  dodgeChange Int
+  characters  Character[]
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String @unique @db.VarChar(20)
+  password String @db.VarChar(20)
+}

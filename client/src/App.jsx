@@ -1,7 +1,13 @@
+import Router from "./components/Router";
+import Navbar from "./components/bars/Navbar";
+import Footerbar from "./components/bars/Footerbar";
+
 const App = () => {
   return (
     <>
-      <h1>heheheh</h1>
+      <Navbar />
+      <Router />
+      <Footerbar />
     </>
   );
 };

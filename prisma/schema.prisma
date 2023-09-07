@@ -20,6 +20,15 @@ model Character_Location {
   @@id([locationId, characterId])
 }
 
+model Quest {
+  id          Int         @id @default(autoincrement())
+  name        String      @unique @db.VarChar(20)
+  description String      @db.Text
+  isCompleted Boolean     @default(false) @db.Boolean
+  locations   Location[]
+  characters  Character[]
+}
+
 model Choice {
   id              Int        @id @default(autoincrement())
   name            String     @unique @db.VarChar(20)
@@ -54,6 +63,7 @@ model Character {
   currentLocationId Int
   currentLocation   Location             @relation(fields: [currentLocationId], references: [id])
   unlockedLocations Character_Location[]
+  quests            Quest[]
 }
 
 model Location {
@@ -64,6 +74,7 @@ model Location {
   character_location Character_Location[]
   monsters           Monster[]
   choices            Choice[]
+  quests             Quest[]
 }
 
 model Class {

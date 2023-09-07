@@ -85,7 +85,9 @@ model Race {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  username String @unique @db.VarChar(20)
-  password String @db.VarChar(20)
+  id       Int     @id @default(autoincrement())
+  username String  @unique @db.VarChar(20)
+  password String  @db.VarChar(20)
+  isAdmin  Boolean @default(false) @db.Boolean
+  isBanned Boolean @default(false) @db.Boolean
 }

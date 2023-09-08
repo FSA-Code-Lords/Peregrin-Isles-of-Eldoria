@@ -18,11 +18,13 @@ model Item {
 }
 
 model Quest {
-  id          Int        @id @default(autoincrement())
-  name        String     @unique @db.VarChar(20)
-  description String     @db.Text
-  isCompleted Boolean    @default(false) @db.Boolean
-  locations   Location[]
+  id                Int        @id @default(autoincrement())
+  name              String     @unique @db.VarChar(20)
+  description       String     @db.Text
+  completionMessage String     @db.Text
+  failedMessage     String     @db.Text
+  isCompleted       Boolean    @default(false) @db.Boolean
+  locations         Location[]
 }
 
 model Choice {

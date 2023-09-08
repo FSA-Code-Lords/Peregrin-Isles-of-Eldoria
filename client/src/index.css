@@ -1,0 +1,13 @@
+#footerbar {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  justify-content: center;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  padding: 20px;
+}

@@ -1,7 +1,10 @@
+import Home from "./Home";
+
+
 const Router = () => {
   return (
     <>
-      <h1>Router</h1>
+      <Home />
     </>
   );
 };

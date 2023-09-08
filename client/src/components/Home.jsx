@@ -1,7 +1,9 @@
 const Home = () => {
   return (
     <>
-      <h1>Home</h1>
+      <div id="gamelogo-container">
+        <h1 id="gamelogo">Peregrin Isles of Eldoria</h1>
+      </div>
     </>
   );
 };

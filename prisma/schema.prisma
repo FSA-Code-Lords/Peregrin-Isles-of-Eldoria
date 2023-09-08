@@ -15,6 +15,7 @@ model Item {
   name        String     @unique @db.VarChar(20)
   description String     @db.Text
   locations   Location[]
+  quests      Quest[]
 }
 
 model Quest {
@@ -25,6 +26,9 @@ model Quest {
   failedMessage     String     @db.Text
   isCompleted       Boolean    @default(false) @db.Boolean
   locations         Location[]
+  monsters          Monster[]
+  choices           Choice[]
+  items             Item[]
 }
 
 model Choice {
@@ -33,6 +37,7 @@ model Choice {
   action          String     @db.Text
   result          String     @db.Text
   locations       Location[]
+  quests          Quest[]
   followUpChoices Choice[]   @relation("choices")
   previousChoices Choice[]   @relation("choices")
 }
@@ -44,6 +49,7 @@ model Monster {
   atk      Int
   dodge    Int
   location Location[]
+  quests   Quest[]
 }
 
 model Location {
@@ -84,7 +90,7 @@ model Save_Data {
 model User {
   id       Int         @id @default(autoincrement())
   username String      @unique @db.VarChar(20)
-  password String      @db.VarChar(20)
+  password String      @db.VarChar(255)
   isAdmin  Boolean     @default(false) @db.Boolean
   isBanned Boolean     @default(false) @db.Boolean
   saveData Save_Data[]

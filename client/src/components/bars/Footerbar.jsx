@@ -1,7 +1,9 @@
 const Footerbar = () => {
   return (
     <>
-      <h1>Footerbar</h1>
+      <div id="footerbar">
+        <h1>Footerbar</h1>
+      </div>
     </>
   );
 };

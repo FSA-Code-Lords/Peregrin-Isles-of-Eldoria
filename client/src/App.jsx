@@ -5,8 +5,8 @@ import Footerbar from "./components/bars/Footerbar";
 const App = () => {
   return (
     <>
-      <Navbar />
       <Router />
+      <Navbar />
       <Footerbar />
     </>
   );

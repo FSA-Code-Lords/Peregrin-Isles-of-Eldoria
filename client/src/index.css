@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
+
+
+body {
+  background-image: url("https://i0.wp.com/www.helwyssocietyforum.com/wp-content/uploads/2011/12/Best-top-desktop-hd-wall-wood-wallpaper-wood-wallpapers-wall-picture-image-241.jpg?resize=1024%2C640&ssl=1");
+}
+
+figure.mainlogo-container {
+  position: relative;
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(203, 203, 178);
+  width: 600px;
+  height: 180px;
+  overflow: hidden;
+}
+
+
+h1.logo-text {
+  font-size: 50px;
+  text-align: center;
+  margin: 0;
+  padding: 10px;
+  color: black;
+  font-family: 'IM Fell English SC', sans-serif;
+}
+
+figure.mainlogo-container::before,
+figure.mainlogo-container::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 50px solid transparent;
+}
+
+figure.mainlogo-container::before {
+  border-top-color: rgba(0, 0, 0, 0.1);
+  border-left-color: rgba(0, 0, 0, 0.1);
+  top: 0;
+  left: 0;
+}
+
+
+figure.mainlogo-container::after {
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+  border-right-color: rgba(0, 0, 0, 0.1);
+  bottom: 0;
+  right: 0;
+}
+
+#button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: rgb(86, 20, 1);
+  color: tan;
+  border: none;
+  border-radius: 8px;
+  margin-right: 10px;
+}
+
+.nav-button:hover {
+  background-color: #7b3b2b;
+}
+
+#footerbar {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  justify-content: center;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.212);
+  backdrop-filter: blur(2px);
+  border-radius: 8px;
+  padding: 20px;
+}

@@ -26,27 +26,31 @@ router.post("/register", async (req, res) => {
       res.send({ message: "Could not add User" });
     }
   } catch (error) {
-    res.send(error.message);
+    res.send({ error });
   }
 });
 
 router.post("/login", async (req, res) => {
-  const { username, password } = req.body;
+  try {
+    const { username, password } = req.body;
 
-  const user = await prisma.user.findUnique({
-    where: { username },
-  });
+    const user = await prisma.user.findUnique({
+      where: { username },
+    });
 
-  if (user) {
-    const passwordMatch = await bcryptjs.compare(password, user.password);
-    if (passwordMatch) {
-      const token = jwt.sign({ id: user.id }, process.env.JWT);
-      res.send({ token });
+    if (user) {
+      const passwordMatch = await bcryptjs.compare(password, user.password);
+      if (passwordMatch) {
+        const token = jwt.sign({ id: user.id }, process.env.JWT);
+        res.send({ token });
+      } else {
+        res.send({ message: "Invalid Login" });
+      }
     } else {
       res.send({ message: "Invalid Login" });
     }
-  } else {
-    res.send({ message: "Invalid Login" });
+  } catch (error) {
+    res.send({ error });
   }
 });
 

@@ -48,7 +48,7 @@ router.get(`/:id`, async (req, res) => {
 
 router.put(`/:id`, requireUser, async (req, res) => {
   try {
-    if (req.userId === req.params.id || req.isAdmin) {
+    if (req.userId === Number(req.params.id) || req.isAdmin) {
       const updateUser = await prisma.user.update({
         where: {
           id: Number(req.params.id),
@@ -67,7 +67,7 @@ router.put(`/:id`, requireUser, async (req, res) => {
 
 router.delete(`/:id`, requireUser, async (req, res) => {
   try {
-    if (req.userId === req.params.id || req.isAdmin) {
+    if (req.userId === Number(req.params.id) || req.isAdmin) {
       await prisma.user.delete({
         where: {
           id: Number(req.params.id),

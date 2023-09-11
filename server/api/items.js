@@ -5,11 +5,11 @@ const prisma = new PrismaClient();
 
 router.get(`/`, async (req, res) => {
   try {
-    const allRaces = await prisma.race.findMany();
+    const allItems = await prisma.item.findMany();
 
-    allRaces
-      ? res.send(allRaces)
-      : res.send({ error: true, message: `Error getting races` });
+    allItems
+      ? res.send(allItems)
+      : res.send({ error: true, message: `Error getting items` });
   } catch (error) {
     res.send({ error });
   }
@@ -17,15 +17,15 @@ router.get(`/`, async (req, res) => {
 
 router.get(`/:id`, async (req, res) => {
   try {
-    const race = await prisma.race.findUnique({
+    const item = await prisma.item.findUnique({
       where: {
         id: Number(req.params.id),
       },
     });
 
-    race
-      ? res.send(race)
-      : res.send({ error: true, message: `Error getting race by that id` });
+    item
+      ? res.send(item)
+      : res.send({ error: true, message: `Error getting item by that id` });
   } catch (error) {
     res.send({ error });
   }
@@ -33,42 +33,42 @@ router.get(`/:id`, async (req, res) => {
 
 router.post(`/`, requireAdmin, async (req, res) => {
   try {
-    const newRace = await prisma.race.create({
+    const newItem = await prisma.item.create({
       data: req.body,
     });
 
-    res.send({ message: `Race created`, race: newRace });
+    res.send({ message: `Item created`, item: newItem });
   } catch (error) {
-    res.send({ message: `Error creating race`, error });
+    res.send({ message: `Error creating item`, error });
   }
 });
 
 router.put(`/:id`, requireAdmin, async (req, res) => {
   try {
-    const updateRace = await prisma.race.update({
+    const updateItem = await prisma.item.update({
       where: {
         id: Number(req.params.id),
       },
       data: req.body,
     });
 
-    res.send({ message: `Race updated`, race: updateRace });
+    res.send({ message: `Item updated`, item: updateItem });
   } catch (error) {
-    res.send({ message: `Error updating race`, error });
+    res.send({ message: `Error updating item`, error });
   }
 });
 
 router.delete(`/:id`, requireAdmin, async (req, res) => {
   try {
-    await prisma.race.delete({
+    await prisma.item.delete({
       where: {
         id: Number(req.params.id),
       },
     });
 
-    res.send({ message: `Race deleted` });
+    res.send({ message: `Item deleted` });
   } catch (error) {
-    res.send({ message: `Error deleting race`, error });
+    res.send({ message: `Error deleting item`, error });
   }
 });
 

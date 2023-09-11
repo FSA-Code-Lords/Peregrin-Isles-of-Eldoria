@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { requireAdmin } = require("./utils");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
@@ -41,7 +42,7 @@ router.get(`/:id`, async (req, res) => {
   }
 });
 
-router.post(`/`, async (req, res) => {
+router.post(`/`, requireAdmin, async (req, res) => {
   try {
     const newLocation = await prisma.location.create({
       data: req.body,
@@ -53,7 +54,7 @@ router.post(`/`, async (req, res) => {
   }
 });
 
-router.put(`/:id`, async (req, res) => {
+router.put(`/:id`, requireAdmin, async (req, res) => {
   try {
     const updateLocation = await prisma.location.update({
       where: {
@@ -68,7 +69,7 @@ router.put(`/:id`, async (req, res) => {
   }
 });
 
-router.delete(`/:id`, async (req, res) => {
+router.delete(`/:id`, requireAdmin, async (req, res) => {
   try {
     await prisma.location.delete({
       where: {

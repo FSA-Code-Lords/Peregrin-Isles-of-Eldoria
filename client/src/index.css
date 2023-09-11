@@ -70,6 +70,52 @@ figure.mainlogo-container::after {
   background-color: #7b3b2b;
 }
 
+.wall-sconces-logo-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+  width: 1000px;
+}
+
+.wall-sconce {
+  width: 50px;
+  height: 100px;
+  border-top-left-radius: 40%;
+  border-top-right-radius: 40%;
+  background-color: #f1c40f;
+  position: relative;
+  margin: 20px;
+}
+
+.flame {
+  width: 25px;
+  height: 60px;
+  background-color: #e3900ad6;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  transform: translateX(-50%);
+  animation: flicker 0.5s infinite alternate;
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+    transform: scaleY(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+
 #footerbar {
   display: flex;
   align-items: center;

@@ -22,9 +22,17 @@ const Home = () => {
 
   return (
     <>
-      <figure className="mainlogo-container">
-        <h1 className="logo-text">Peregrin Isles of Eldoria</h1>
-      </figure>
+     <div className="wall-sconces-logo-container">
+        <div className="wall-sconce">
+          <div className="flame"></div>
+        </div>
+        <figure className="mainlogo-container">
+          <h1 className="logo-text">Peregrin Isles of Eldoria</h1>
+        </figure>
+        <div className="wall-sconce">
+          <div className="flame"></div>
+        </div>
+      </div>
       <div id="button-container">
         <button className="nav-button" onClick={handleNewGameClick}>
           New Game

@@ -11,5 +11,6 @@ router.use(`/races`, require(`./races`));
 router.use(`/items`, require(`./items`));
 router.use(`/monsters`, require(`./monsters`));
 router.use(`/users`, require(`./users`));
+router.use(`/saveData`, require(`./saveData`));
 
 module.exports = router;

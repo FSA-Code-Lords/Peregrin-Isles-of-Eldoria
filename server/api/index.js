@@ -5,5 +5,6 @@ router.get("/", (req, res) => {
 });
 
 router.use(`/quests`, require(`./quests`));
+router.use(`/locations`, require(`./locations`));
 
 module.exports = router;

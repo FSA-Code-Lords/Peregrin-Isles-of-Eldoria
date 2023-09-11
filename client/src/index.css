@@ -2,7 +2,8 @@
 
 
 body {
-  background-image: url("https://i0.wp.com/www.helwyssocietyforum.com/wp-content/uploads/2011/12/Best-top-desktop-hd-wall-wood-wallpaper-wood-wallpapers-wall-picture-image-241.jpg?resize=1024%2C640&ssl=1");
+  background-image: url("https://images.hdqwalls.com/wallpapers/misty-yosemite-rd.jpg");
+  background-size: cover;
 }
 
 figure.mainlogo-container {
@@ -72,7 +73,7 @@ figure.mainlogo-container::after {
 
 .wall-sconces-logo-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   margin: auto;
   width: 1000px;
@@ -85,7 +86,7 @@ figure.mainlogo-container::after {
   border-top-right-radius: 40%;
   background-color: #f1c40f;
   position: relative;
-  margin: 20px;
+  margin: 0; 
 }
 
 .flame {
@@ -129,4 +130,16 @@ figure.mainlogo-container::after {
   backdrop-filter: blur(2px);
   border-radius: 8px;
   padding: 20px;
+}
+
+.registerForm {
+  display: flex;
+  justify-content: center;
+}
+
+.registerForm-container {
+  background: rgba(255, 255, 255, 0.212);
+  backdrop-filter: blur (8px);
+  padding: 20px;
+  max-width: 600px;
 }

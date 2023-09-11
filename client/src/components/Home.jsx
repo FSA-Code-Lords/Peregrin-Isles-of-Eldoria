@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 const Home = () => {
   const navigate = useNavigate();
 
-  const handleNewGameClick = () => {
-    navigate('/newgame');
+  const handleNewUserClick = () => {
+    navigate('/register');
   };
 
   const handleCreditsClick = () => {
@@ -16,8 +16,8 @@ const Home = () => {
     navigate('/about');
   }
 
-  const handleLoadGameClick = () => {
-    navigate('/loadgame');
+  const handleLogInClick = () => {
+    navigate('/login');
   };
 
   return (
@@ -34,11 +34,11 @@ const Home = () => {
         </div>
       </div>
       <div id="button-container">
-        <button className="nav-button" onClick={handleNewGameClick}>
-          New Game
+        <button className="nav-button" onClick={handleNewUserClick}>
+          Register New User
         </button>
-        <button className="nav-button" onClick={handleLoadGameClick}>
-          Load Game
+        <button className="nav-button" onClick={handleLogInClick}>
+          Users Log In
         </button>
         <button className="nav-button" onClick={handleAboutClick}>
           About Game

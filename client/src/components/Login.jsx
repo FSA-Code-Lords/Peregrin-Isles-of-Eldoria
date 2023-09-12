@@ -10,18 +10,17 @@ const Login = () => {
   const navigate = useNavigate();
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [showGameOptions, setShowGameOptions] = useState(false);
-  
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
 
- 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await fetch('/api/login', {
+      const response = await fetch('/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -33,7 +32,10 @@ const Login = () => {
         const data = await response.json();
         const token = data.token;
 
-        // Store the token
+        localStorage.setItem('token', token);
+
+        setLoginSuccess(true);
+        setShowGameOptions(true);
       } else {
         console.error('Login failed:', response.statusText);
       }
@@ -43,13 +45,8 @@ const Login = () => {
   };
 
   const handleOkClick = () => {
-    setLoginSuccess(true);
-    setShowGameOptions(true);
-  }
-
-  const handleNewGameClick = () => {
     navigate('/newgame');
-  }
+  };
 
   const handleMainMenuClick = () => {
     navigate('/');
@@ -57,11 +54,11 @@ const Login = () => {
 
   const handleLoadGameClick = () => {
     navigate('/loadgame');
-  }
+  };
 
   return (
-    <div className='formstyle'>
-      <div className='form-container'>
+    <div className="formstyle">
+      <div className="form-container">
         <h2>User Login</h2>
         <form onSubmit={handleSubmit}>
           <div>
@@ -84,7 +81,9 @@ const Login = () => {
               required
             />
           </div>
-          <button id='login-button' type="submit">Login</button>
+          <button id="login-button" type="submit">
+            Login
+          </button>
         </form>
         <button onClick={handleMainMenuClick}>Return to Main Menu</button>
         {loginSuccess ? (
@@ -92,19 +91,23 @@ const Login = () => {
             {showGameOptions ? (
               <div>
                 <p>Login Successful! Enjoy exploring the Isles of Eldoria!</p>
-                <button id='new-game-button' onClick={handleNewGameClick}>New Game</button>
-                <button id='load-game-button' onClick={handleLoadGameClick}>Load Game</button>
+                <button id="new-game-button" onClick={handleOkClick}>
+                  New Game
+                </button>
+                <button id="load-game-button" onClick={handleLoadGameClick}>
+                  Load Game
+                </button>
               </div>
             ) : (
-              <button id='ok-button' onClick={handleOkClick}>Ok</button>
+              <button id="ok-button" onClick={handleOkClick}>
+                Ok
+              </button>
             )}
           </div>
         ) : null}
       </div>
     </div>
   );
-  
 };
-  
 
 export default Login;

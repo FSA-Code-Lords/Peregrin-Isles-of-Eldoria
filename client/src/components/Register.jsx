@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-    confirmPassword: '',
+    username: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const navigate = useNavigate();
@@ -20,41 +19,47 @@ const Register = () => {
     event.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      window.alert('Passwords do not match. Please try again.');
+      window.alert("Passwords do not match. Please try again.");
       return;
     }
 
     try {
-      const response = await fetch('/api/register', {
-        method: 'POST',
+      const response = await fetch("/auth/register", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          username: formData.username,
+          password: formData.password,
+        }),
       });
 
       if (response.ok) {
         const data = await response.json();
         const token = data.token;
 
-        // Store the token securely
-        window.alert('Successfully Registered! Prepare to explore the Isles of Eldoria!');
-        navigate.push('/newgame');
+        localStorage.setItem(`token`, token);
+
+        window.alert(
+          "Successfully Registered! Prepare to explore the Isles of Eldoria!"
+        );
+        navigate("/newgame");
       } else {
-        console.error('Registration failed:', response.statusText);
+        console.error("Registration failed:", response.statusText);
       }
     } catch (error) {
-      console.error('Registration failed:', error);
+      console.error("Registration failed:", error);
     }
   };
 
   const handleMainMenuClick = () => {
-    navigate('/');
+    navigate("/");
   };
 
   return (
-    <div className='registerForm'>
-      <div className='registerForm-container'>
+    <div className="registerForm">
+      <div className="registerForm-container">
         <h2>User Registration</h2>
         <form onSubmit={handleSubmit}>
           <div>

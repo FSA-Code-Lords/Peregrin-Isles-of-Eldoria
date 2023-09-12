@@ -56,21 +56,9 @@ const Login = () => {
   }
 
   return (
-    <div>
-      <h2>User Login</h2>
-      {loginSuccess ? (
-        <div>
-          {showGameOptions ? (
-            <div>
-              <p>Login Successful! Enjoy exploring the Isles of Eldoria!</p>
-              <button onClick={handleNewGameClick}>New Game</button>
-              <button onClick={handleLoadGameClick}>Load Game</button>
-            </div>
-          ) : (
-            <button onClick={handleOkClick}>Ok</button>
-          )}
-        </div>
-      ) : (
+    <div className='formstyle'>
+      <div className='form-container'>
+        <h2>User Login</h2>
         <form onSubmit={handleSubmit}>
           <div>
             <label>Username:</label>
@@ -92,11 +80,25 @@ const Login = () => {
               required
             />
           </div>
-          <button type="submit">Login</button>
+          <button id='login-button' type="submit">Login</button>
         </form>
-      )}
+        {loginSuccess ? (
+          <div>
+            {showGameOptions ? (
+              <div>
+                <p>Login Successful! Enjoy exploring the Isles of Eldoria!</p>
+                <button id='new-game-button' onClick={handleNewGameClick}>New Game</button>
+                <button id='load-game-button' onClick={handleLoadGameClick}>Load Game</button>
+              </div>
+            ) : (
+              <button id='ok-button' onClick={handleOkClick}>Ok</button>
+            )}
+          </div>
+        ) : null}
+      </div>
     </div>
   );
+  
 };
   
 

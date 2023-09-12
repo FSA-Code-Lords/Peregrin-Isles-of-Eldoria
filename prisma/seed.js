@@ -95,17 +95,16 @@ async function main() {
       name: `Continue fighting`,
       action: `You attack again!`,
       result: `Damage dealt: `,
+    },
+  });
+
+  await prisma.choice.update({
+    where: {
+      name: `Continue fighting`,
+    },
+    data: {
       followUpChoices: {
-        connectOrCreate: {
-          where: {
-            name: `Continue fighting`,
-          },
-          create: {
-            name: `Continue fighting`,
-            action: `You attack again!`,
-            result: `Damage dealt: `,
-          },
-        },
+        connect: [choiceContinueFighting, choiceRun],
       },
     },
   });

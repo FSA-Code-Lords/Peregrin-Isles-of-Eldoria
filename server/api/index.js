@@ -5,5 +5,12 @@ router.get("/", (req, res) => {
 });
 
 router.use(`/quests`, require(`./quests`));
+router.use(`/locations`, require(`./locations`));
+router.use(`/classes`, require(`./classes`));
+router.use(`/races`, require(`./races`));
+router.use(`/items`, require(`./items`));
+router.use(`/monsters`, require(`./monsters`));
+router.use(`/users`, require(`./users`));
+router.use(`/saveData`, require(`./saveData`));
 
 module.exports = router;

@@ -51,6 +51,10 @@ const Login = () => {
     navigate('/newgame');
   }
 
+  const handleMainMenuClick = () => {
+    navigate('/');
+  };
+
   const handleLoadGameClick = () => {
     navigate('/loadgame');
   }
@@ -82,6 +86,7 @@ const Login = () => {
           </div>
           <button id='login-button' type="submit">Login</button>
         </form>
+        <button onClick={handleMainMenuClick}>Return to Main Menu</button>
         {loginSuccess ? (
           <div>
             {showGameOptions ? (

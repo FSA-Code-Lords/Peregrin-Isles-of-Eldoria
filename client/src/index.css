@@ -132,12 +132,12 @@ figure.mainlogo-container::after {
   padding: 20px;
 }
 
-.registerForm {
+.formstyle {
   display: flex;
   justify-content: center;
 }
 
-.registerForm-container {
+.form-container {
   background: rgba(255, 255, 255, 0.212);
   backdrop-filter: blur (8px);
   padding: 20px;

@@ -15,14 +15,13 @@ const Game = () => {
   };
 
   const handleChoiceClick = (newLocation) => {
-    // Fade out the current image by setting opacity to 0
+
     setCurrentLocationOpacity(0);
 
-    // After a very brief delay, change the background image and fade it in
     setTimeout(() => {
       setCurrentLocation(newLocation);
-      setCurrentLocationOpacity(1); // Fade in the new image
-    }, 500); // A very short delay, enough to trigger the transition
+      setCurrentLocationOpacity(1);
+    }, 100);
   };
 
   return (

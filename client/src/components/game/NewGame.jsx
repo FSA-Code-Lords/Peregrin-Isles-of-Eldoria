@@ -27,6 +27,7 @@ const NewGame = () => {
         baseStats.dodge +
         characterClass.dodgeChange +
         characterRace.dodgeChange,
+      currentLocation: "",
     },
     quests: [],
     map: [],

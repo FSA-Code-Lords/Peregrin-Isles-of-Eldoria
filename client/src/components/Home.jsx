@@ -22,31 +22,31 @@ const Home = () => {
 
   return (
     <>
-     <div className="wall-sconces-logo-container">
-        <div className="wall-sconce">
-          <div className="flame"></div>
+      <div className="wall-sconces-logo-container">
+          <div className="wall-sconce">
+            <div className="flame"></div>
+          </div>
+          <figure className="mainlogo-container">
+            <h1 className="logo-text">Peregrin Isles of Eldoria</h1>
+          </figure>
+          <div className="wall-sconce">
+            <div className="flame"></div>
+          </div>
         </div>
-        <figure className="mainlogo-container">
-          <h1 className="logo-text">Peregrin Isles of Eldoria</h1>
-        </figure>
-        <div className="wall-sconce">
-          <div className="flame"></div>
+        <div id="button-container">
+          <button className="nav-button" onClick={handleNewUserClick}>
+            Register New User
+          </button>
+          <button className="nav-button" onClick={handleLogInClick}>
+            Users Log In
+          </button>
+          <button className="nav-button" onClick={handleAboutClick}>
+            About Game
+          </button>
+          <button className="nav-button" onClick={handleCreditsClick}>
+            Credits
+          </button>
         </div>
-      </div>
-      <div id="button-container">
-        <button className="nav-button" onClick={handleNewUserClick}>
-          Register New User
-        </button>
-        <button className="nav-button" onClick={handleLogInClick}>
-          Users Log In
-        </button>
-        <button className="nav-button" onClick={handleAboutClick}>
-          About Game
-        </button>
-        <button className="nav-button" onClick={handleCreditsClick}>
-          Credits
-        </button>
-      </div>
     </>
   );
 };

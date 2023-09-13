@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 
 const Game = () => {
   const [currentLocation, setCurrentLocation] = useState('Start Town');
-  
+  const [currentLocationOpacity, setCurrentLocationOpacity] = useState(1);
+
   const locationBackgrounds = {
     'Start Town': 'https://cdnb.artstation.com/p/assets/images/images/027/950/891/small/david-vaz-highresscreenshot00002.jpg',
     'Forest': 'https://twistedsifter.com/wp-content/uploads/2019/04/mystical-by-nei-burnell-2.jpg',
@@ -14,11 +15,18 @@ const Game = () => {
   };
 
   const handleChoiceClick = (newLocation) => {
-    setCurrentLocation(newLocation);
+    // Fade out the current image by setting opacity to 0
+    setCurrentLocationOpacity(0);
+
+    // After a very brief delay, change the background image and fade it in
+    setTimeout(() => {
+      setCurrentLocation(newLocation);
+      setCurrentLocationOpacity(1); // Fade in the new image
+    }, 500); // A very short delay, enough to trigger the transition
   };
 
   return (
-    <div className="main-game" style={{ backgroundImage: `url(${locationBackgrounds[currentLocation]})`, height: '100vh' }}>
+    <div className="main-game" style={{ backgroundImage: `url(${locationBackgrounds[currentLocation]})`, opacity: currentLocationOpacity, height: '100vh', transition: 'opacity 0.5s ease-in-out' }}>
       <div className="choice-buttons">
         <button onClick={() => handleChoiceClick('Forest')}>Go to North Forest</button>
         <button onClick={() => handleChoiceClick('Swamp')}>Go to Murky Swamp</button>

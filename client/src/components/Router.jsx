@@ -7,10 +7,12 @@ import NewGame from './game/NewGame';
 import About from './About';
 import Credits from './Credits';
 import Home from './Home';
+import Game from './game/Game';
 
 const Router = () => {
   return (
     <Routes>
+      <Route path="/game" element={<Game />} />
       <Route path="/newgame" element={<NewGame />} />
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />

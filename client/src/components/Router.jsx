@@ -7,6 +7,7 @@ import NewGame from './game/NewGame';
 import About from './About';
 import Credits from './Credits';
 import Home from './Home';
+import Game from './game/Game';
 import Admin from './Admin';
 import Users from "./Users";
 

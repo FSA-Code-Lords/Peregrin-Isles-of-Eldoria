@@ -97,11 +97,17 @@ const Admin = () => {
     //     banUser(id);
     // };
 
+    const handleMainMenuClick = () => {
+      navigate("/");
+    };
+
     return (
         <div className='formstyle'>
         <div className='form-container'>
       <section id="userPage" className="flex">
         <h1>Admin</h1>
+        <button onClick={handleMainMenuClick}>Return to Main Menu</button>
+
         <h2>All Users</h2>
         {isAdmin ? (
           users.map((user) => (

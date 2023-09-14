@@ -6,21 +6,21 @@ const Admin = () => {
     const [users, setUsers] = useState([]);
     const [isAdmin, setIsAdmin] = useState(false);
     const [changesHappened, setChangesHappened] = useState(false);
-  
+
     const navigate = useNavigate();
-  
+
     const token = localStorage.getItem(`token`);
-    
+
     useEffect(() => {
       if (localStorage.getItem(`token`)) {
         const tokenArr = localStorage.getItem(`token`).split(`.`);
         const { id } = JSON.parse(atob(tokenArr[1]));
-  
+
         checkIfAdmin(id);
         fetchUsers();
       }
     }, [changesHappened]);
-  
+
     const checkIfAdmin = async (id) => {
       try {
         const response = await fetch(`/api/users/${id}`);
@@ -30,12 +30,12 @@ const Admin = () => {
         console.log(error);
       }
     };
-  
+
     const fetchUsers = async () => {
       try {
         const response = await fetch(`/api/users`);
         const result = await response.json();
-  
+
         result.sort((user1, user2) => {
           if (user1.username < user2.username) {
             return -1;
@@ -45,13 +45,13 @@ const Admin = () => {
             return 0;
           }
         });
-  
+
         setUsers(result);
       } catch (error) {
         console.log(error);
       }
     };
-  
+
     const deleteUser = async (id) => {
       try {
         await fetch(`/api/users/${id}`, {
@@ -61,13 +61,13 @@ const Admin = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-  
+
         setChangesHappened(!changesHappened);
       } catch (error) {
         console.log(error);
       }
     };
-  
+
     // const banUser = async (id) => {
     //     try {
     //       await fetch(`/api/users/${id}`, {
@@ -76,9 +76,9 @@ const Admin = () => {
     //           "Content-Type": `application/json`,
     //           Authorization: `Bearer ${token}`,
     //         },
-            
+
     //       });
-    
+
     //       setChangesHappened(!changesHappened);
     //     } catch (error) {
     //       console.log(error);
@@ -88,7 +88,7 @@ const Admin = () => {
     const clickHandler = (id) => {
       navigate(`/profile/${id}`);
     };
-  
+
     const deleteHandler = (id) => {
       deleteUser(id);
     };
@@ -96,12 +96,18 @@ const Admin = () => {
     // const banHandler = (id) => {
     //     banUser(id);
     // };
-  
+
+    const handleMainMenuClick = () => {
+      navigate("/");
+    };
+
     return (
         <div className='formstyle'>
         <div className='form-container'>
       <section id="userPage" className="flex">
         <h1>Admin</h1>
+        <button onClick={handleMainMenuClick}>Return to Main Menu</button>
+
         <h2>All Users</h2>
         {isAdmin ? (
           users.map((user) => (

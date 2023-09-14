@@ -5,7 +5,9 @@ const Profile = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem(`token`);
+    const tokenArr = token.split(`.`);
+    const userId = JSON.parse(atob(tokenArr[1])).id;
 
     if (!userId) {
       console.error('User ID not found');
@@ -43,9 +45,42 @@ const Profile = () => {
             <div>
               <h3>Saved Games:</h3>
               <ul>
-                {userData.savedGames.map((game, index) => (
-                  <li key={index}>{game.name}</li>
-                ))}
+                {userData.savedGames.map((game, index) => {
+                  const parsedGame = JSON.parse(game.serializedData);
+                  return (
+                    <li key={index}>
+                      <h4>Game {index + 1}</h4>
+                      <div>
+                        <h5>Character Info:</h5>
+                        {parsedGame.character && (
+                          <>
+                            <p>Name: {parsedGame.character.name}</p>
+                            <p>Race: {parsedGame.character.race}</p>
+                            <p>Class: {parsedGame.character.class}</p>
+                            <p>HP: {parsedGame.character.hp}</p>
+                            <p>Attack: {parsedGame.character.atk}</p>
+                          </>
+                        )}
+                      </div>
+                      <div>
+                        <h5>Quests:</h5>
+                        <ul>
+                          {parsedGame.quests &&
+                            parsedGame.quests.map((quest, questIndex) => (
+                              <li key={questIndex}>
+                                {quest.name && (
+                                  <p>Quest Name: {quest.name}</p>
+                                )}
+                                {quest.description && (
+                                  <p>Quest Description: {quest.description}</p>
+                                )}
+                              </li>
+                            ))}
+                        </ul>
+                      </div>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </>

@@ -29,9 +29,10 @@ const NewGame = () => {
         characterRace.dodgeChange,
       currentLocation: "",
     },
-    quests: [],
     map: [],
     inventory: [],
+    quests: [],
+    completedQuests: [],
   };
 
   useEffect(() => {

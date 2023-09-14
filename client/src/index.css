@@ -116,20 +116,34 @@ figure.mainlogo-container::after {
   }
 }
 
+.imageThumbnail {
+  height: 30px;
+}
+
+/* Footer Bar */
 
 #footerbar {
-  display: flex;
+  /* display: flex;
+  flex-direction: row;
   align-items: center;
   position: fixed;
   bottom: 0;
+  overflow: hidden;
   justify-content: center;
   left: 0;
   right: 0;
-  height: 30px;
+  /* height: 30px; */
   background: rgba(255, 255, 255, 0.212);
   backdrop-filter: blur(2px);
-  border-radius: 8px;
-  padding: 20px;
+  /* border-radius: 8px; */
+  /* padding: 20px; */
+  /* background-color: #f0f0f0; */
+  overflow: hidden;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  border-top: solid 3px;
 }
 
 .formstyle {
@@ -142,4 +156,19 @@ figure.mainlogo-container::after {
   backdrop-filter: blur (8px);
   padding: 20px;
   max-width: 600px;
+}
+
+#github {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#github > div {
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+
+.spacer {
+  height: 60px;
 }

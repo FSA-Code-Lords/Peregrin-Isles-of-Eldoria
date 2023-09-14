@@ -8,10 +8,12 @@ import About from './About';
 import Credits from './Credits';
 import Home from './Home';
 import Game from './game/Game';
+import Users from "./Users";
 
 const Router = () => {
   return (
     <Routes>
+      <Route path="/users" element={<Users />} />
       <Route path="/game" element={<Game />} />
       <Route path="/newgame" element={<NewGame />} />
       <Route path="/register" element={<Register />} />

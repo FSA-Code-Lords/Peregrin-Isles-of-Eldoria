@@ -20,6 +20,10 @@ const Home = () => {
     navigate('/login');
   };
 
+  const handleAdminClick = () => {
+    navigate('/admin');
+  };
+
   return (
     <>
       <div className="wall-sconces-logo-container">
@@ -45,6 +49,9 @@ const Home = () => {
           </button>
           <button className="nav-button" onClick={handleCreditsClick}>
             Credits
+          </button>
+          <button className="nav-button" onClick={handleAdminClick}>
+            Secret Admin Button
           </button>
         </div>
     </>

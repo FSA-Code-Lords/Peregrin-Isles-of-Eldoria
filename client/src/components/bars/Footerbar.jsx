@@ -4,13 +4,13 @@ import linkedinThumbnail from "../images/linkedinThumbnail.png";
 const Footerbar = () => {
   return (
     <>
-      <div id="footerbar">
+      <div id="footerbar-container">
         {/* <div id="copyrightBar" align="center">
           &copy; 2023 PIE Team 
         </div> */}
         <div id="gitBar">
           <div>
-            <p>Loulian Liu</p>
+            <span>Loulian Liu</span>
             <a href="https://github.com/loulian444" target="blank">
               <img src={githubThumbnail} className="imageThumbnail"></img>
             </a> 
@@ -19,7 +19,7 @@ const Footerbar = () => {
             </a>
           </div>      
           <div>
-            <p>Edward Jacobian</p>
+            <span>Edward Jacobian</span>
             <a href="https://github.com/edjacobian" target="blank">
               <img src={githubThumbnail} className="imageThumbnail"></img>
             </a> 
@@ -28,7 +28,7 @@ const Footerbar = () => {
             </a>
           </div> 
           <div>
-            <p>James Gauvreau</p>
+            <span>James Gauvreau</span>
             <a href="https://github.com/JamesGauvreau" target="blank">
               <img src={githubThumbnail} className="imageThumbnail"></img>
             </a> 

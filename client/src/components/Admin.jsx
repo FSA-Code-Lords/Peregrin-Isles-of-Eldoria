@@ -10,7 +10,7 @@ const Admin = () => {
     const navigate = useNavigate();
   
     const token = localStorage.getItem(`token`);
-   
+    
     useEffect(() => {
       if (localStorage.getItem(`token`)) {
         const tokenArr = localStorage.getItem(`token`).split(`.`);

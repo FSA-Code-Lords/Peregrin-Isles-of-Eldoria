@@ -130,7 +130,7 @@ const NewGame = () => {
   };
 
   return (
-    <div>
+    <div style={{ background: "white"}}>
       <h2>Create a New Character</h2>
       <form onSubmit={handleSubmit}>
         <div>

@@ -8,7 +8,7 @@ import About from './About';
 import Credits from './Credits';
 import Home from './Home';
 import Admin from './Admin';
-import Game from './game/Game';
+import Game from './game/Game'; 
 
 const Router = () => {
   return (

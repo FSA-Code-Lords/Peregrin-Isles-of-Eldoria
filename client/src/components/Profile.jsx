@@ -32,25 +32,27 @@ const Profile = () => {
   }, []);
 
   return (
-    <div>
-      <h1>User Profile</h1>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : userData ? (
-        <>
-          <h2>{userData.username}</h2>
-          <div>
-            <h3>Saved Games:</h3>
-            <ul>
-              {userData.savedGames.map((game, index) => (
-                <li key={index}>{game.name}</li>
-              ))}
-            </ul>
-          </div>
-        </>
-      ) : (
-        <p>Error fetching user data.</p>
-      )}
+    <div className='formstyle'>
+      <div className='form-container'>
+        <h1>User Profile</h1>
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : userData ? (
+          <>
+            <h2>{userData.username}</h2>
+            <div>
+              <h3>Saved Games:</h3>
+              <ul>
+                {userData.savedGames.map((game, index) => (
+                  <li key={index}>{game.name}</li>
+                ))}
+              </ul>
+            </div>
+          </>
+        ) : (
+          <p>Error fetching user data.</p>
+        )}
+      </div>
     </div>
   );
 };

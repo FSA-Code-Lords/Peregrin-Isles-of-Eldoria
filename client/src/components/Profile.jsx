@@ -88,7 +88,7 @@ const Profile = () => {
                   );
                 })}
               </ul>
-              <div id='profilemenubutton-container'>
+              <div className='menubutton-container'>
               <button onClick={handleMainMenuClick}>Return to Main Menu</button>
               </div>
             </div>

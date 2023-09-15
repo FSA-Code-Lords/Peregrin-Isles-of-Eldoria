@@ -181,7 +181,7 @@ figure.mainlogo-container::after {
   top: 10px;
 }
 
-#profilemenubutton-container {
+.menubutton-container {
   display: flex;
   justify-content: center;
   align-items: center;

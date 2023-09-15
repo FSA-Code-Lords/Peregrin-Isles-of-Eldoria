@@ -23,7 +23,7 @@ const Footerbar = () => {
             <a href="https://github.com/edjacobian" target="blank">
               <img src={githubThumbnail} className="imageThumbnail"></img>
             </a> 
-            <a href="linkedin" target="blank">
+            <a href="https://www.linkedin.com/in/edward-jacobian-5a31456b" target="blank">
             <img src={linkedinThumbnail} className="imageThumbnail"></img>
             </a>
           </div> 

@@ -181,6 +181,12 @@ figure.mainlogo-container::after {
   top: 10px;
 }
 
+.menubutton-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 .formstyle {
   display: flex;

@@ -58,7 +58,6 @@ const Register = () => {
   };
 
   return (
-
     <div className='formstyle'>
       <div className='form-container'>
         <h2>User Registration</h2>

@@ -31,7 +31,7 @@ const Login = () => {
       if (response.ok) {
         const data = await response.json();
         const token = data.token;
-
+        console.log(data);
         localStorage.setItem('token', token);
 
         setLoginSuccess(true);
@@ -55,6 +55,10 @@ const Login = () => {
   const handleLoadGameClick = () => {
     navigate('/loadgame');
   };
+
+  const handleProfileClick = () => {
+    navigate('/userprofile');
+  }
 
   return (
     <div className="formstyle">
@@ -96,6 +100,9 @@ const Login = () => {
                 </button>
                 <button id="load-game-button" onClick={handleLoadGameClick}>
                   Load Game
+                </button>
+                <button id="profile-button" onClick={handleProfileClick}>
+                  User Profile
                 </button>
               </div>
             ) : (

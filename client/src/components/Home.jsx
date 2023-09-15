@@ -2,14 +2,31 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState(false);
   const [token, setToken] = useState(``);
+
+  const navigate = useNavigate();
   console.log(token);
 
   useEffect(() => {
-    const localToken = localStorage.getItem(`token`);
-    localToken ? setToken(localToken) : null;
+    if (localStorage.getItem(`token`)) {
+      setToken(localStorage.getItem(`token`));
+      const tokenArr = localStorage.getItem(`token`).split(`.`);
+      const { id } = JSON.parse(atob(tokenArr[1]));
+
+      checkIfAdmin(id);
+    }
   }, []);
+
+  const checkIfAdmin = async (id) => {
+    try {
+      const response = await fetch(`/api/users/${id}`);
+      const result = await response.json();
+      setIsAdmin(result.isAdmin);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleNewUserClick = () => {
     navigate("/register");
@@ -25,6 +42,10 @@ const Home = () => {
 
   const handleLogInClick = () => {
     navigate("/login");
+  };
+
+  const handleAdminClick = () => {
+    navigate("/admin");
   };
 
   return (
@@ -43,8 +64,15 @@ const Home = () => {
       <div id="button-container">
         {token ? (
           <>
-            <button className="nav-button" onClick={() => navigate(`/newgame`)}>New Game</button>
-            <button className="nav-button" onClick={() => navigate(`/loadgame`)}>Load Game</button>
+            <button className="nav-button" onClick={() => navigate(`/newgame`)}>
+              New Game
+            </button>
+            <button
+              className="nav-button"
+              onClick={() => navigate(`/loadgame`)}
+            >
+              Load Game
+            </button>
           </>
         ) : (
           <>
@@ -62,6 +90,11 @@ const Home = () => {
         <button className="nav-button" onClick={handleCreditsClick}>
           Credits
         </button>
+        {isAdmin ? (
+          <button className="nav-button" onClick={handleAdminClick}>
+            Secret Admin Button
+          </button>
+        ) : null}
       </div>
     </>
   );

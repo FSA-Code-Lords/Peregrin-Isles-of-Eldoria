@@ -16,6 +16,10 @@ const NewGame = () => {
     dodgeChange: 0,
   });
 
+  const token = localStorage.getItem(`token`);
+  const tokenArr = token.split(`.`);
+  const userId = JSON.parse(atob(tokenArr[1])).id;
+
   const newGame = {
     character: {
       name: characterName,
@@ -42,6 +46,7 @@ const NewGame = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     localStorage.setItem(`gameData`, JSON.stringify(newGame));
+    saveGame(JSON.stringify(newGame));
     event.target.reset();
     setCharacterClass({
       hpChange: 0,
@@ -54,6 +59,27 @@ const NewGame = () => {
       dodgeChange: 0,
     });
     navigate(`/loadGame`);
+  };
+
+  const saveGame = async (gameData) => {
+    try {
+      const response = await fetch(`/api/SaveData`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          serializedData: gameData,
+          userId,
+        }),
+      });
+
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const fetchRace = async (id) => {
@@ -104,7 +130,7 @@ const NewGame = () => {
   };
 
   return (
-    <div>
+    <div style={{ background: "white"}}>
       <h2>Create a New Character</h2>
       <form onSubmit={handleSubmit}>
         <div>

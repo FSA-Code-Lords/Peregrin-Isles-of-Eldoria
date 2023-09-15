@@ -167,11 +167,18 @@ figure.mainlogo-container::after {
 #gitBar {
   display: flex;
   gap: 75px;
+  position: relative;
+  top: -5px;
 }
 
 #gitBar span {
   font-weight: 900;
   font-size: large;
+}
+
+#gitBar a {
+  position: relative;
+  top: 10px;
 }
 
 

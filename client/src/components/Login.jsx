@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ setIsLoggedIn }) => {
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
+    username: "",
+    password: "",
   });
 
   const navigate = useNavigate();
@@ -20,10 +20,10 @@ const Login = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch('/auth/login', {
-        method: 'POST',
+      const response = await fetch("/auth/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -32,33 +32,34 @@ const Login = () => {
         const data = await response.json();
         const token = data.token;
         console.log(data);
-        localStorage.setItem('token', token);
+        localStorage.setItem("token", token);
 
         setLoginSuccess(true);
         setShowGameOptions(true);
+        setIsLoggedIn(true);
       } else {
-        console.error('Login failed:', response.statusText);
+        console.error("Login failed:", response.statusText);
       }
     } catch (error) {
-      console.error('Login failed:', error);
+      console.error("Login failed:", error);
     }
   };
 
   const handleOkClick = () => {
-    navigate('/newgame');
+    navigate("/newgame");
   };
 
   const handleMainMenuClick = () => {
-    navigate('/');
+    navigate("/");
   };
 
   const handleLoadGameClick = () => {
-    navigate('/loadgame');
+    navigate("/loadgame");
   };
 
   const handleProfileClick = () => {
-    navigate('/userprofile');
-  }
+    navigate("/userprofile");
+  };
 
   return (
     <div className="formstyle">

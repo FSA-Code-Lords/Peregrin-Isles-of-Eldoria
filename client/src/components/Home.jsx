@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Home = () => {
+const Home = ({ isLoggedIn }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [token, setToken] = useState(``);
 
@@ -16,7 +16,7 @@ const Home = () => {
 
       checkIfAdmin(id);
     }
-  }, []);
+  }, [isLoggedIn]);
 
   const checkIfAdmin = async (id) => {
     try {
@@ -62,7 +62,7 @@ const Home = () => {
         </div>
       </div>
       <div id="button-container">
-        {token ? (
+        {isLoggedIn ? (
           <>
             <button className="nav-button" onClick={() => navigate(`/newgame`)}>
               New Game

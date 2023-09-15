@@ -201,3 +201,8 @@ figure.mainlogo-container::after {
 .spacer {
   height: 60px;
 }
+
+#navBar {
+  position: fixed;
+  right: 0;
+}

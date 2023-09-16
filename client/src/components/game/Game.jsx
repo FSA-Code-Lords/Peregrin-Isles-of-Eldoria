@@ -29,7 +29,7 @@ const Game = () => {
       <div className="choice-buttons">
         <button onClick={() => handleChoiceClick('Forest')}>Go to North Forest</button>
         <button onClick={() => handleChoiceClick('Swamp')}>Go to Murky Swamp</button>
-        <button onClick={() => handleChoiceClick('Tavern')}>Go to McDonald Tavern</button>
+        <button onClick={() => handleChoiceClick('Tavern')}>Go to O'Doyle's Tavern</button>
         <button onClick={() => handleChoiceClick('Market')}>Go to Mercantile Market</button>
         <button onClick={() => handleChoiceClick('Castle Front')}>Go to Eldoria Castle</button>
         <button onClick={() => handleChoiceClick('Castle Interior')}>Enter Eldoria Castle</button>

@@ -9,10 +9,17 @@ const LoadGame = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('/api/saveData')
+    const tokenArr = localStorage.getItem(`token`).split(`.`);
+    const { id } = JSON.parse(atob(tokenArr[1]));
+    fetch(`/api/saveData/${id}`)
       .then((response) => response.json())
-      .then((data) => {
-        setsaveData(data);
+      .then((dataArray) => {
+        const parseDataArray = dataArray.map((data) => {
+          return JSON.parse(data.serializedData);
+        })
+        setsaveData(parseDataArray);
+        console.log(`parseDataArray below`);
+        console.log(parseDataArray);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -34,13 +41,13 @@ const LoadGame = () => {
         ) : (
           <ul>
             {saveData.map((saveData) => (
-              <li key={saveData.id}>
+              <p key={saveData.id}>
                 {/* Render saved game details here */}
-                <p>Name: {saveData.name}</p>
-                <p>Race: {saveData.race}</p>
-                <p>Class: {saveData.class}</p>
+                <h2>{saveData.character.name}</h2>
+                <p>Race: {saveData.character.race}</p>
+                <p>Class: {saveData.character.class}</p>
                 {/* Add more details as needed */}
-              </li>
+              </p>
             ))}
           </ul>
         )}

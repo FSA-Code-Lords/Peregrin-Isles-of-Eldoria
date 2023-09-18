@@ -16,10 +16,10 @@ router.get(`/`, async (req, res) => {
     });
 
     allUsers
-      ? res.send(allUsers)
-      : res.send({ error: true, message: `Error getting users` });
+      ? res.status(200).send(allUsers)
+      : res.status(400).send({ error: true, message: `Error getting users` });
   } catch (error) {
-    res.send({ error });
+    res.status(500).send({ error });
   }
 });
 
@@ -39,10 +39,12 @@ router.get(`/:id`, async (req, res) => {
     });
 
     user
-      ? res.send(user)
-      : res.send({ error: true, message: `Error getting user by that id` });
+      ? res.status(200).send(user)
+      : res
+          .status(404)
+          .send({ error: true, message: `Error getting user by that id` });
   } catch (error) {
-    res.send({ error });
+    res.status(500).send({ error });
   }
 });
 
@@ -56,12 +58,14 @@ router.put(`/:id`, requireUser, async (req, res) => {
         data: req.body,
       });
 
-      res.send({ message: `User updated`, user: updateUser });
+      res.status(200).send({ message: `User updated`, user: updateUser });
     } else {
-      res.send({ message: `Not authorized to update user`, error: true });
+      res
+        .status(401)
+        .send({ message: `Not authorized to update user`, error: true });
     }
   } catch (error) {
-    res.send({ message: `Error updating user`, error });
+    res.status(500).send({ message: `Error updating user`, error });
   }
 });
 
@@ -74,12 +78,14 @@ router.delete(`/:id`, requireUser, async (req, res) => {
         },
       });
 
-      res.send({ message: `User deleted` });
+      res.status(200).send({ message: `User deleted` });
     } else {
-      res.send({ message: `Not authorized to delete user`, error: true });
+      res
+        .status(401)
+        .send({ message: `Not authorized to delete user`, error: true });
     }
   } catch (error) {
-    res.send({ message: `Error deleting user`, error });
+    res.status(500).send({ message: `Error deleting user`, error });
   }
 });
 

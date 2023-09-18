@@ -14,10 +14,12 @@ router.get(`/`, async (req, res) => {
     });
 
     allLocations
-      ? res.send(allLocations)
-      : res.send({ error: true, message: `Error getting locations` });
+      ? res.status(200).send(allLocations)
+      : res
+          .status(400)
+          .send({ error: true, message: `Error getting locations` });
   } catch (error) {
-    res.send({ error });
+    res.status(500).send({ error });
   }
 });
 
@@ -35,10 +37,12 @@ router.get(`/:id`, async (req, res) => {
     });
 
     location
-      ? res.send(location)
-      : res.send({ error: true, message: `Error getting location by that id` });
+      ? res.status(200).send(location)
+      : res
+          .status(404)
+          .send({ error: true, message: `Error getting location by that id` });
   } catch (error) {
-    res.send({ error });
+    res.status(500).send({ error });
   }
 });
 
@@ -48,9 +52,11 @@ router.post(`/`, requireAdmin, async (req, res) => {
       data: req.body,
     });
 
-    res.send({ message: `Location created`, location: newLocation });
+    res
+      .status(201)
+      .send({ message: `Location created`, location: newLocation });
   } catch (error) {
-    res.send({ message: `Error creating location`, error });
+    res.status(500).send({ message: `Error creating location`, error });
   }
 });
 
@@ -63,9 +69,11 @@ router.put(`/:id`, requireAdmin, async (req, res) => {
       data: req.body,
     });
 
-    res.send({ message: `Location updated`, location: updateLocation });
+    res
+      .status(200)
+      .send({ message: `Location updated`, location: updateLocation });
   } catch (error) {
-    res.send({ message: `Error updating location`, error });
+    res.status(500).send({ message: `Error updating location`, error });
   }
 });
 
@@ -77,9 +85,9 @@ router.delete(`/:id`, requireAdmin, async (req, res) => {
       },
     });
 
-    res.send({ message: `Location deleted` });
+    res.status(200).send({ message: `Location deleted` });
   } catch (error) {
-    res.send({ message: `Error deleting location`, error });
+    res.status(500).send({ message: `Error deleting location`, error });
   }
 });
 

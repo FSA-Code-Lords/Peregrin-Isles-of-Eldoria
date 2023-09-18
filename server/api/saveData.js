@@ -28,19 +28,9 @@ router.get(`/`, async (req, res) => {
 
 router.get(`/:id`, async (req, res) => {
   try {
-    const saveData = await prisma.save_Data.findUnique({
+    const saveData = await prisma.save_Data.findMany({
       where: {
-        id: Number(req.params.id),
-      },
-      include: {
-        user: {
-          select: {
-            id: true,
-            username: true,
-            isAdmin: true,
-            isBanned: true,
-          },
-        },
+        userId: Number(req.params.id),
       },
     });
 

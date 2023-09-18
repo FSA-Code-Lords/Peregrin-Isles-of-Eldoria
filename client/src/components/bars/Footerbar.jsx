@@ -10,28 +10,28 @@ const Footerbar = () => {
         </div> */}
         <div id="gitBar">
           <div>
-            <span>Loulian Liu</span>
+            <span>Loulian Liu</span> &ensp;
             <a href="https://github.com/loulian444" target="blank">
               <img src={githubThumbnail} className="imageThumbnail"></img>
-            </a> 
+            </a> &ensp;
             <a href="https://www.linkedin.com/in/loulianliu/" target="blank">
             <img src={linkedinThumbnail} className="imageThumbnail"></img>
             </a>
           </div>      
           <div>
-            <span>Edward Jacobian</span>
+            <span>Edward Jacobian</span>&ensp;
             <a href="https://github.com/edjacobian" target="blank">
               <img src={githubThumbnail} className="imageThumbnail"></img>
-            </a> 
+            </a> &ensp;
             <a href="https://www.linkedin.com/in/edward-jacobian-5a31456b" target="blank">
             <img src={linkedinThumbnail} className="imageThumbnail"></img>
             </a>
           </div> 
           <div>
-            <span>James Gauvreau</span>
+            <span>James Gauvreau</span>&ensp;
             <a href="https://github.com/JamesGauvreau" target="blank">
               <img src={githubThumbnail} className="imageThumbnail"></img>
-            </a> 
+            </a> &ensp;
             <a href="https://www.linkedin.com/in/james-gauvreau" target="blank">
             <img src={linkedinThumbnail} className="imageThumbnail"></img>
             </a>

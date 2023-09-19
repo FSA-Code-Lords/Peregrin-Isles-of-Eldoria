@@ -1,31 +1,79 @@
 import React, { useState, useEffect } from 'react';
 
 const Game = () => {
-  const [currentLocationData, setCurrentLocationData] = useState(null);
+  const [currentLocation, setCurrentLocation] = useState(null);
+  const [selectedLocationId, setSelectedLocationId] = useState('');
+  const [locationOptions, setLocationOptions] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const fetchStartTownData = async () => {
+    const fetchAllLocations = async () => {
       try {
-        const response = await fetch(`/api/locations/1`);
-        const locationData = await response.json();
-        setCurrentLocationData(locationData);
+        // Make an API request to fetch all location data
+        const response = await fetch('/api/locations');
+        const locations = await response.json();
+
+        // Map location data to options for the dropdown
+        const options = locations.map((location) => (
+          <option key={location.id} value={location.id}>
+            {location.name}
+          </option>
+        ));
+
+        // Set the location options in the state
+        setLocationOptions(options);
       } catch (error) {
-        console.error('Error fetching Start Town data:', error);
+        console.error('Error fetching location data:', error);
       }
     };
 
-    fetchStartTownData();
-  }, []); // Only fetch data when the component mounts
+    fetchAllLocations();
+  }, []);
+
+  const handleTravelClick = async () => {
+    setIsLoading(true);
+
+    try {
+      // Make an API request to fetch location data based on selectedLocationId
+      const response = await fetch(`/api/locations/${selectedLocationId}`);
+      const locationData = await response.json();
+
+      // Update the current location, including background image, and stop loading
+      setCurrentLocation(locationData);
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error fetching location data:', error);
+      setIsLoading(false);
+    }
+  };
+
+  const handleLocationChange = (event) => {
+    setSelectedLocationId(event.target.value);
+  };
 
   return (
-    <div className="main-game" style={{ backgroundImage: currentLocationData?.locationImg ? `url(${currentLocationData.locationImg})` : 'none', height: '100vh', backgroundSize: 'cover' }}>
+    <div className="main-game" style={{ backgroundImage: `url(${currentLocation?.locationImg || ''})` }}>
       <div className="location-description">
-        {currentLocationData && (
+        {currentLocation ? (
           <div>
-            <h2>{currentLocationData.name}</h2>
-            <p>{currentLocationData.description}</p>
+            <h1>{currentLocation.name}</h1>
+            <p>{currentLocation.description}</p>
           </div>
-        )}
+        ) : null}
+      </div>
+      <div className="choice-buttons">
+        <select
+          id="locationSelect"
+          name="location"
+          onChange={handleLocationChange}
+          value={selectedLocationId}
+        >
+          <option value="">Select a Location</option>
+          {locationOptions}
+        </select>
+        <button onClick={handleTravelClick} disabled={isLoading}>
+          {isLoading ? 'Loading...' : 'Travel'}
+        </button>
       </div>
     </div>
   );

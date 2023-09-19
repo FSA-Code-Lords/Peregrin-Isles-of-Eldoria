@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 const Game = () => {
-  const [currentLocation, setCurrentLocation] = useState(null);
-  const [selectedLocationId, setSelectedLocationId] = useState('');
+  const [currentLocation, setCurrentLocation] = useState(`1`);
+  const [selectedLocationId, setSelectedLocationId] = useState(``);
   const [locationOptions, setLocationOptions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -28,14 +28,15 @@ const Game = () => {
     };
 
     fetchAllLocations();
+    handleTravelClick(1);
   }, []);
 
-  const handleTravelClick = async () => {
+  const handleTravelClick = async (id) => {
     setIsLoading(true);
 
     try {
       // Make an API request to fetch location data based on selectedLocationId
-      const response = await fetch(`/api/locations/${selectedLocationId}`);
+      const response = await fetch(`/api/locations/${id}`);
       const locationData = await response.json();
 
       // Update the current location, including background image, and stop loading
@@ -71,7 +72,7 @@ const Game = () => {
           <option value="">Select a Location</option>
           {locationOptions}
         </select>
-        <button onClick={handleTravelClick} disabled={isLoading}>
+        <button onClick={() => handleTravelClick(selectedLocationId)} disabled={isLoading}>
           {isLoading ? 'Loading...' : 'Travel'}
         </button>
       </div>

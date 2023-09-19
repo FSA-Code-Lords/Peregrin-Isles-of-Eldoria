@@ -12,5 +12,6 @@ router.use(`/items`, require(`./items`));
 router.use(`/monsters`, require(`./monsters`));
 router.use(`/users`, require(`./users`));
 router.use(`/saveData`, require(`./saveData`));
+router.use(`/choices`, require(`./choices`));
 
 module.exports = router;

@@ -10,12 +10,12 @@ import Profile from "./Profile";
 import Home from "./Home";
 import Game from "./game/Game";
 import Admin from "./Admin";
-import Users from "./Users";
+import Quest from "./game/Quest";
 
 const Router = ({ isLoggedIn, setIsLoggedIn }) => {
   return (
     <Routes>
-      <Route path="/users" element={<Users />} />
+      <Route path="/quest/:id" element={<Quest />} />
       <Route path="/game" element={<Game />} />
       <Route path="/newgame" element={<NewGame />} />
       <Route path="/userprofile" element={<Profile />} />

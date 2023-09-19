@@ -162,15 +162,43 @@ async function main() {
 
   // Locations
   await prisma.location.create({
-    data: {
-      name: `Creepy Room`,
-      description: `Why is that orc in grandma's dress???`,
+    data:{
+      name: `Start Town`,
+      description: `All the comforts of home`,
       quests: {
         connect: [questGetPie],
       },
     },
+  })
+
+  await prisma.location.createMany({
+    data: [
+    {
+      name: `North Forest`,
+      description: `A dense and mystical woodland teeming with ancient trees and hidden secrets`,
+    },
+    {
+      name: `Misty Swamp`,
+      description: `A murky and treacherous wetland cloaked in mist, concealing both peril and mystique`
+    },
+    {
+      name: `Black Thorn Tavern`,
+      description: `Exuding an otherworldly ambiance, there is a roaring hearth, and a formidable orc savoring a steaming pie`
+    },
+    {
+      name: `Three Courtesans Market`,
+      description: `A bustling market with merchants showcasing their exotic wares`
+    },
+    {
+      name: `Eldoria Castle`,
+      description: `The imposing castle stands tall with its grand wooden drawbridge at the entrance`
+    },
+    {
+      name: `Eldoria Castle Interior`,
+      description: `Explore the opulent grandeur of the Eldoria Castle's interior, adorned with majestic tapestries and shimmering chandeliers, where secrets and challenges await`
+    }
+  ]
   });
-}
 
 main()
   .then(async () => {
@@ -181,4 +209,4 @@ main()
     console.error(e);
     await prisma.$disconnect();
     process.exit(1);
-  });
+  })};

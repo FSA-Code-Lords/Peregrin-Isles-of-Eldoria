@@ -161,23 +161,12 @@ async function main() {
   });
 
   // Locations
-  await prisma.location.create({
-    data: {
-      name: `Start Town`,
-      description: `All the comforts of home`,
-      locationImg: `https://cdnb.artstation.com/p/assets/images/images/027/950/891/small/david-vaz-highresscreenshot00002.jpg`,
-      quests: {
-        connect: [questGetPie],
-      },
-    },
-  });
-
   await prisma.location.createMany({
     data: [
       {
-        name: `North Forest`,
-        description: `A dense and mystical woodland teeming with ancient trees and hidden secrets`,
-        locationImg: `https://twistedsifter.com/wp-content/uploads/2019/04/mystical-by-nei-burnell-2.jpg`
+        name: `Start Town`,
+        description: `All the comforts of home`,
+        locationImg: `https://cdnb.artstation.com/p/assets/images/images/027/950/891/small/david-vaz-highresscreenshot00002.jpg`,
       },
       {
         name: `Misty Swamp`,
@@ -185,9 +174,9 @@ async function main() {
         locationImg: `https://cdna.artstation.com/p/assets/images/images/001/063/810/large/nicolas-chacin-pantanopantalla.jpg`
       },
       {
-        name: `Black Thorn Tavern`,
-        description: `Exuding an otherworldly ambiance, there is a roaring hearth, and a formidable orc savoring a steaming pie`,
-        locationImg: `https://cdn1.epicgames.com/ue/product/Screenshot/01-1920x1080-dcbf2aaa619b9debe3aef9922f89d316.png`
+        name: `North Forest`,
+        description: `A dense and mystical woodland teeming with ancient trees and hidden secrets`,
+        locationImg: `https://twistedsifter.com/wp-content/uploads/2019/04/mystical-by-nei-burnell-2.jpg`,
       },
       {
         name: `Three Courtesans Market`,
@@ -206,8 +195,19 @@ async function main() {
       },
     ],
   });
-
+  
+  await prisma.location.create({
+    data: {
+      name: `Black Thorn Tavern`,
+      description: `Exuding an otherworldly ambiance, there is a roaring hearth, and a formidable orc savoring a steaming pie`,
+      locationImg: `https://cdn1.epicgames.com/ue/product/Screenshot/01-1920x1080-dcbf2aaa619b9debe3aef9922f89d316.png`,
+      quests: {
+        connect: [questGetPie],
+      },
+    },
+  });
 }
+
 main()
   .then(async () => {
     console.log(`SUCCESFULLY SEEDED`);

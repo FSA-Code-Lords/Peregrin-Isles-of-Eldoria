@@ -8,10 +8,10 @@ router.get(`/`, async (req, res) => {
     const allItems = await prisma.item.findMany();
 
     allItems
-      ? res.send(allItems)
-      : res.send({ error: true, message: `Error getting items` });
+      ? res.status(200).send(allItems)
+      : res.status(400).send({ error: true, message: `Error getting items` });
   } catch (error) {
-    res.send({ error });
+    res.status(500).send({ error });
   }
 });
 
@@ -24,10 +24,12 @@ router.get(`/:id`, async (req, res) => {
     });
 
     item
-      ? res.send(item)
-      : res.send({ error: true, message: `Error getting item by that id` });
+      ? res.status(200).send(item)
+      : res
+          .status(404)
+          .send({ error: true, message: `Error getting item by that id` });
   } catch (error) {
-    res.send({ error });
+    res.status(500).send({ error });
   }
 });
 
@@ -37,9 +39,9 @@ router.post(`/`, requireAdmin, async (req, res) => {
       data: req.body,
     });
 
-    res.send({ message: `Item created`, item: newItem });
+    res.status(201).send({ message: `Item created`, item: newItem });
   } catch (error) {
-    res.send({ message: `Error creating item`, error });
+    res.status(500).send({ message: `Error creating item`, error });
   }
 });
 
@@ -52,9 +54,9 @@ router.put(`/:id`, requireAdmin, async (req, res) => {
       data: req.body,
     });
 
-    res.send({ message: `Item updated`, item: updateItem });
+    res.status(200).send({ message: `Item updated`, item: updateItem });
   } catch (error) {
-    res.send({ message: `Error updating item`, error });
+    res.status(500).send({ message: `Error updating item`, error });
   }
 });
 
@@ -66,9 +68,9 @@ router.delete(`/:id`, requireAdmin, async (req, res) => {
       },
     });
 
-    res.send({ message: `Item deleted` });
+    res.status(200).send({ message: `Item deleted` });
   } catch (error) {
-    res.send({ message: `Error deleting item`, error });
+    res.status(500).send({ message: `Error deleting item`, error });
   }
 });
 

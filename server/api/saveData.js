@@ -19,10 +19,12 @@ router.get(`/`, async (req, res) => {
     });
 
     allSaveDatas
-      ? res.send(allSaveDatas)
-      : res.send({ error: true, message: `Error getting save datas` });
+      ? res.status(500).send(allSaveDatas)
+      : res
+          .status(400)
+          .send({ error: true, message: `Error getting save datas` });
   } catch (error) {
-    res.send({ error });
+    res.status(500).send({ error });
   }
 });
 
@@ -35,13 +37,13 @@ router.get(`/:id`, async (req, res) => {
     });
 
     saveData
-      ? res.send(saveData)
-      : res.send({
+      ? res.status(200).send(saveData)
+      : res.status(404).send({
           error: true,
           message: `Error getting save data by that id`,
         });
   } catch (error) {
-    res.send({ error });
+    res.status(500).send({ error });
   }
 });
 
@@ -51,9 +53,11 @@ router.post(`/`, requireUser, async (req, res) => {
       data: req.body,
     });
 
-    res.send({ message: `Save data created`, saveData: newSaveData });
+    res
+      .status(201)
+      .send({ message: `Save data created`, saveData: newSaveData });
   } catch (error) {
-    res.send({ message: `Error creating saveData`, error });
+    res.status(500).send({ message: `Error creating saveData`, error });
   }
 });
 
@@ -66,9 +70,11 @@ router.put(`/:id`, requireUser, async (req, res) => {
       data: req.body,
     });
 
-    res.send({ message: `Save data updated`, saveData: updateSaveData });
+    res
+      .status(200)
+      .send({ message: `Save data updated`, saveData: updateSaveData });
   } catch (error) {
-    res.send({ message: `Error updating save data`, error });
+    res.status(500).send({ message: `Error updating save data`, error });
   }
 });
 
@@ -80,9 +86,9 @@ router.delete(`/:id`, requireUser, async (req, res) => {
       },
     });
 
-    res.send({ message: `Save data deleted` });
+    res.status(200).send({ message: `Save data deleted` });
   } catch (error) {
-    res.send({ message: `Error deleting save data`, error });
+    res.status(500).send({ message: `Error deleting save data`, error });
   }
 });
 

@@ -8,10 +8,10 @@ router.get(`/`, async (req, res) => {
     const allRaces = await prisma.race.findMany();
 
     allRaces
-      ? res.send(allRaces)
-      : res.send({ error: true, message: `Error getting races` });
+      ? res.status(200).send(allRaces)
+      : res.status(400).send({ error: true, message: `Error getting races` });
   } catch (error) {
-    res.send({ error });
+    res.status(500).send({ error });
   }
 });
 
@@ -24,10 +24,12 @@ router.get(`/:id`, async (req, res) => {
     });
 
     race
-      ? res.send(race)
-      : res.send({ error: true, message: `Error getting race by that id` });
+      ? res.status(200).send(race)
+      : res
+          .status(404)
+          .send({ error: true, message: `Error getting race by that id` });
   } catch (error) {
-    res.send({ error });
+    res.status(500).send({ error });
   }
 });
 
@@ -37,9 +39,9 @@ router.post(`/`, requireAdmin, async (req, res) => {
       data: req.body,
     });
 
-    res.send({ message: `Race created`, race: newRace });
+    res.status(201).send({ message: `Race created`, race: newRace });
   } catch (error) {
-    res.send({ message: `Error creating race`, error });
+    res.status(500).send({ message: `Error creating race`, error });
   }
 });
 
@@ -52,9 +54,9 @@ router.put(`/:id`, requireAdmin, async (req, res) => {
       data: req.body,
     });
 
-    res.send({ message: `Race updated`, race: updateRace });
+    res.status(200).send({ message: `Race updated`, race: updateRace });
   } catch (error) {
-    res.send({ message: `Error updating race`, error });
+    res.status(500).send({ message: `Error updating race`, error });
   }
 });
 
@@ -66,9 +68,9 @@ router.delete(`/:id`, requireAdmin, async (req, res) => {
       },
     });
 
-    res.send({ message: `Race deleted` });
+    res.status(200).send({ message: `Race deleted` });
   } catch (error) {
-    res.send({ message: `Error deleting race`, error });
+    res.status(500).send({ message: `Error deleting race`, error });
   }
 });
 

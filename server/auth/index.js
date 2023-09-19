@@ -23,10 +23,10 @@ router.post("/register", async (req, res) => {
 
       res.status(201).send({ token });
     } else {
-      res.send({ message: "Could not add User" });
+      res.status(400).send({ message: "Could not add User" });
     }
   } catch (error) {
-    res.send({ error });
+    res.status(500).send({ error });
   }
 });
 
@@ -42,15 +42,15 @@ router.post("/login", async (req, res) => {
       const passwordMatch = await bcryptjs.compare(password, user.password);
       if (passwordMatch) {
         const token = jwt.sign({ id: user.id }, process.env.JWT);
-        res.send({ token });
+        res.status(200).send({ token });
       } else {
-        res.send({ message: "Invalid Login" });
+        res.status(400).send({ message: "Invalid Login" });
       }
     } else {
-      res.send({ message: "Invalid Login" });
+      res.status(400).send({ message: "Invalid Login" });
     }
   } catch (error) {
-    res.send({ error });
+    res.status(500).send({ error });
   }
 });
 

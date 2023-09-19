@@ -21,10 +21,10 @@ router.get(`/`, async (req, res) => {
     });
 
     allQuests
-      ? res.send(allQuests)
-      : res.send({ error: true, message: `Error getting quests` });
+      ? res.status(200).send(allQuests)
+      : res.status(400).send({ error: true, message: `Error getting quests` });
   } catch (error) {
-    res.send({ error });
+    res.status(500).send({ error });
   }
 });
 
@@ -48,10 +48,12 @@ router.get(`/:id`, async (req, res) => {
     });
 
     quest
-      ? res.send(quest)
-      : res.send({ error: true, message: `Error getting quest by that id` });
+      ? res.status(200).send(quest)
+      : res
+          .status(404)
+          .send({ error: true, message: `Error getting quest by that id` });
   } catch (error) {
-    res.send({ error });
+    res.status(500).send({ error });
   }
 });
 
@@ -61,9 +63,9 @@ router.post(`/`, requireAdmin, async (req, res) => {
       data: req.body,
     });
 
-    res.send({ message: `Quest created`, quest: newQuest });
+    res.status(201).send({ message: `Quest created`, quest: newQuest });
   } catch (error) {
-    res.send({ message: `Error creating quest`, error });
+    res.status(500).send({ message: `Error creating quest`, error });
   }
 });
 
@@ -76,9 +78,9 @@ router.put(`/:id`, requireAdmin, async (req, res) => {
       data: req.body,
     });
 
-    res.send({ message: `Quest updated`, quest: updateQuest });
+    res.status(200).send({ message: `Quest updated`, quest: updateQuest });
   } catch (error) {
-    res.send({ message: `Error updating quest`, error });
+    res.status(500).send({ message: `Error updating quest`, error });
   }
 });
 
@@ -90,9 +92,9 @@ router.delete(`/:id`, requireAdmin, async (req, res) => {
       },
     });
 
-    res.send({ message: `Quest deleted` });
+    res.status(200).send({ message: `Quest deleted` });
   } catch (error) {
-    res.send({ message: `Error deleting quest`, error });
+    res.status(500).send({ message: `Error deleting quest`, error });
   }
 });
 

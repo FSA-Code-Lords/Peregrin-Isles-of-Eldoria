@@ -3,6 +3,21 @@
 .main-game {
   background-position: 80%;
   background-size: cover;
+  height: 100vh;
+}
+
+.location-description {
+  position: relative;
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  font-size: large;
+  background-color: rgb(203, 203, 178);
+  font-family: 'IM Fell English SC', sans-serif;
+  width: 550px;
+  height: 120px;
+  overflow: hidden;
 }
 
 .choice-buttons {

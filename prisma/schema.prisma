@@ -56,6 +56,7 @@ model Location {
   id          Int       @id @default(autoincrement())
   name        String    @unique @db.VarChar(50)
   description String    @db.Text
+  locationImg String    @db.Text
   monsters    Monster[]
   choices     Choice[]
   quests      Quest[]

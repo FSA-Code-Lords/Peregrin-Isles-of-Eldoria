@@ -27,9 +27,10 @@ const Login = ({ setIsLoggedIn }) => {
         },
         body: JSON.stringify(formData),
       });
+      
+      const data = await response.json();
 
-      if (response.ok) {
-        const data = await response.json();
+      if (data.token) {
         const token = data.token;
         console.log(data);
         localStorage.setItem("token", token);

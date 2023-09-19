@@ -5,6 +5,20 @@
   background-size: cover;
 }
 
+.location-description {
+  position: relative;
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  font-size: x-large;
+  background-color: rgb(203, 203, 178);
+  font-family: 'IM Fell English SC', sans-serif;
+  width: 350px;
+  height: 100px;
+  overflow: hidden;
+}
+
 .choice-buttons {
   position: absolute;
   bottom: 20%;

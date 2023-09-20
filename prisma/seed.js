@@ -3,14 +3,40 @@ const prisma = new PrismaClient();
 const bcryptjs = require("bcryptjs");
 
 async function main() {
-  // ADMIN
-  await prisma.user.create({
-    data: {
+  // Users
+  await prisma.user.createMany({
+    data: [
+      {
       username: `xXxDragonSlayerxXx`,
       password: await bcryptjs.hash(`password`, 4),
       isAdmin: true,
     },
+    {
+      username: `Mudd`,
+      password: await bcryptjs.hash(`123`, 4),
+      isAdmin: false,
+    },
+    {
+      username: `BaileyBear`,
+      password: await bcryptjs.hash(`123`, 4),
+      isAdmin: false,
+    },
+  ],
   });
+
+//   // Saved games
+// await prisma.race.createMany({
+//   data: [
+//     {
+//       serializedData: '{"character":{"name":"Redd","race":"Human","class":"Assassin"}}',
+//       userId: 1,
+//     },
+//     {
+//       serializedData: '{"character":{"name":"Blue","race":"Orc","class":"Knight"}}',
+//       userId: 1,
+//     }
+//   ]
+// })
 
   // Races
   await prisma.race.createMany({

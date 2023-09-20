@@ -4,10 +4,14 @@ const Profile = () => {
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-
   useEffect(() => {
-    const token = localStorage.getItem(`token`);
-    const tokenArr = token.split(`.`);
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setIsLoading(false);
+      return;
+    }
+
+    const tokenArr = token.split('.');
     const userId = JSON.parse(atob(tokenArr[1])).id;
 
     if (!userId) {
@@ -18,7 +22,7 @@ const Profile = () => {
 
     Promise.all([
       fetch(`/api/users/${userId}`),
-      fetch('/api/saveData'),
+      fetch('/api/saveData?userId=' + userId),
     ])
       .then((responses) => Promise.all(responses.map((res) => res.json())))
       .then(([userDataResponse, savedGameDataResponse]) => {
@@ -35,8 +39,8 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className='formstyle'>
-      <div className='form-container'>
+    <div className="formstyle">
+      <div className="form-container">
         <h1>User Profile</h1>
         {isLoading ? (
           <p>Loading...</p>

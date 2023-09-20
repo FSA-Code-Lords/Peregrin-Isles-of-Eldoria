@@ -13,10 +13,10 @@ router.get(`/`, async (req, res) => {
     });
 
     allMonsters
-      ? res.send(allMonsters)
-      : res.send({ error: true, message: `Error getting items` });
+      ? res.status(200).send(allMonsters)
+      : res.status(400).send({ error: true, message: `Error getting items` });
   } catch (error) {
-    res.send({ error });
+    res.status(500).send({ error });
   }
 });
 
@@ -33,10 +33,12 @@ router.get(`/:id`, async (req, res) => {
     });
 
     monster
-      ? res.send(monster)
-      : res.send({ error: true, message: `Error getting monster by that id` });
+      ? res.status(200).send(monster)
+      : res
+          .status(404)
+          .send({ error: true, message: `Error getting monster by that id` });
   } catch (error) {
-    res.send({ error });
+    res.status(500).send({ error });
   }
 });
 
@@ -46,9 +48,9 @@ router.post(`/`, requireAdmin, async (req, res) => {
       data: req.body,
     });
 
-    res.send({ message: `Monster created`, monster: newMonster });
+    res.status(201).send({ message: `Monster created`, monster: newMonster });
   } catch (error) {
-    res.send({ message: `Error creating monster`, error });
+    res.status(500).send({ message: `Error creating monster`, error });
   }
 });
 
@@ -61,9 +63,11 @@ router.put(`/:id`, requireAdmin, async (req, res) => {
       data: req.body,
     });
 
-    res.send({ message: `Monster updated`, monster: updateMonster });
+    res
+      .status(200)
+      .send({ message: `Monster updated`, monster: updateMonster });
   } catch (error) {
-    res.send({ message: `Error updating monster`, error });
+    res.status(500).send({ message: `Error updating monster`, error });
   }
 });
 
@@ -75,9 +79,9 @@ router.delete(`/:id`, requireAdmin, async (req, res) => {
       },
     });
 
-    res.send({ message: `Monster deleted` });
+    res.status(200).send({ message: `Monster deleted` });
   } catch (error) {
-    res.send({ message: `Error deleting monster`, error });
+    res.status(500).send({ message: `Error deleting monster`, error });
   }
 });
 

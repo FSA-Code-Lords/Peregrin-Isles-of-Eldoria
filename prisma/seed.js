@@ -161,10 +161,46 @@ async function main() {
   });
 
   // Locations
+  await prisma.location.createMany({
+    data: [
+      {
+        name: `Start Town`,
+        description: `All the comforts of home`,
+        locationImg: `https://cdnb.artstation.com/p/assets/images/images/027/950/891/small/david-vaz-highresscreenshot00002.jpg`,
+      },
+      {
+        name: `Misty Swamp`,
+        description: `A murky and treacherous wetland cloaked in mist, concealing both peril and mystique`,
+        locationImg: `https://cdna.artstation.com/p/assets/images/images/001/063/810/large/nicolas-chacin-pantanopantalla.jpg`
+      },
+      {
+        name: `North Forest`,
+        description: `A dense and mystical woodland teeming with ancient trees and hidden secrets`,
+        locationImg: `https://twistedsifter.com/wp-content/uploads/2019/04/mystical-by-nei-burnell-2.jpg`,
+      },
+      {
+        name: `Three Courtesans Market`,
+        description: `A bustling market with merchants showcasing their exotic wares`,
+        locationImg: `https://storage.googleapis.com/pai-images/6410f6f42dd84829a7b25bf8f65ba543.jpeg`
+      },
+      {
+        name: `Eldoria Castle`,
+        description: `The imposing castle stands tall with its grand wooden drawbridge at the entrance`,
+        locationImg: `https://rare-gallery.com/resol/1366x768/502322-fantasy-art.jpg`
+      },
+      {
+        name: `Eldoria Castle Interior`,
+        description: `Explore the opulent grandeur of the Eldoria Castle's interior, adorned with majestic tapestries and shimmering chandeliers, where secrets and challenges await`,
+        locationImg: `https://wallpaperaccess.com/full/1274092.jpg`
+      },
+    ],
+  });
+  
   await prisma.location.create({
     data: {
-      name: `Creepy Room`,
-      description: `Why is that orc in grandma's dress???`,
+      name: `Black Thorn Tavern`,
+      description: `Exuding an otherworldly ambiance, there is a roaring hearth, and a formidable orc savoring a steaming pie`,
+      locationImg: `https://cdn1.epicgames.com/ue/product/Screenshot/01-1920x1080-dcbf2aaa619b9debe3aef9922f89d316.png`,
       quests: {
         connect: [questGetPie],
       },

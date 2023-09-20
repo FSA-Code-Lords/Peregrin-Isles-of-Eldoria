@@ -68,23 +68,6 @@ const Admin = () => {
       }
     };
 
-    // const banUser = async (id) => {
-    //     try {
-    //       await fetch(`/api/users/${id}`, {
-    //         method: `PUT`,
-    //         headers: {
-    //           "Content-Type": `application/json`,
-    //           Authorization: `Bearer ${token}`,
-    //         },
-
-    //       });
-
-    //       setChangesHappened(!changesHappened);
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-    //   };
-
     const clickHandler = (id) => {
       navigate(`/profile/${id}`);
     };
@@ -92,10 +75,6 @@ const Admin = () => {
     const deleteHandler = (id) => {
       deleteUser(id);
     };
-
-    // const banHandler = (id) => {
-    //     banUser(id);
-    // };
 
     const handleMainMenuClick = () => {
       navigate("/");
@@ -115,16 +94,13 @@ const Admin = () => {
               <section>
                 <h3>{user.username}</h3>
                 <p>Admin: {String(user.isAdmin)}</p>
-                <p>Banned: {String(user.isBanned)}</p>
                 <p><b>Save Files</b></p>
                 <p><i>Save files will go here.</i></p>
+                <p>{}</p>
                 <button onClick={() => deleteHandler(user.id)}>
                   Delete User
                 </button>
                 <br></br>
-                <button onClick={() => banHandler(user.id)}>
-                  Ban User
-                </button>
                 <br></br>
               </section>
             </section>

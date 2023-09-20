@@ -3,6 +3,21 @@
 .main-game {
   background-position: 80%;
   background-size: cover;
+  height: 100vh;
+}
+
+.location-description {
+  position: relative;
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  font-size: large;
+  background-color: rgb(203, 203, 178);
+  font-family: 'IM Fell English SC', sans-serif;
+  width: 550px;
+  height: 120px;
+  overflow: hidden;
 }
 
 .choice-buttons {
@@ -30,6 +45,9 @@
 body {
   background-image: url("https://images.hdqwalls.com/wallpapers/misty-yosemite-rd.jpg");
   background-size: cover;
+  background-attachment: fixed;
+  height: 100vh;
+  margin: 0;
 }
 
 
@@ -159,7 +177,7 @@ figure.mainlogo-container::after {
   left: 0;
   width: 100%;
   height: 45px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(2px);
   border-top: solid 3px;
 }
@@ -167,11 +185,24 @@ figure.mainlogo-container::after {
 #gitBar {
   display: flex;
   gap: 75px;
+  position: relative;
+  top: -5px;
 }
 
 #gitBar span {
   font-weight: 900;
   font-size: large;
+}
+
+#gitBar a {
+  position: relative;
+  top: 10px;
+}
+
+.menubutton-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -200,4 +231,9 @@ figure.mainlogo-container::after {
 
 .spacer {
   height: 60px;
+}
+
+#navBar {
+  position: fixed;
+  right: 0;
 }

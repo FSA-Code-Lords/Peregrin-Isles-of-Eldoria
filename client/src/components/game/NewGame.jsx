@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 const NewGame = () => {
   const baseStats = { hp: 20, atk: 10, dodge: 10 };
   const [characterName, setCharacterName] = useState(``);
@@ -15,9 +14,9 @@ const NewGame = () => {
     atkChange: 0,
     dodgeChange: 0,
   });
-  
+
   const navigate = useNavigate();
-  
+
   const token = localStorage.getItem(`token`);
   const tokenArr = token.split(`.`);
   const userId = JSON.parse(atob(tokenArr[1])).id;
@@ -41,9 +40,11 @@ const NewGame = () => {
     completedQuests: [],
   };
 
+  console.log(newGame);
+
   useEffect(() => {
-    fetchFirstLocation();
-  }, [characterClass, characterRace, characterName]);
+    fetchLocations();
+  }, [characterClass, characterName, characterRace]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -120,12 +121,19 @@ const NewGame = () => {
     }
   };
 
-  const fetchFirstLocation = async () => {
+  const fetchLocations = async () => {
     try {
-      const response = await fetch(`/api/locations/1`);
+      const response = await fetch(`/api/locations/`);
       const result = await response.json();
-      newGame.map.push(result);
-      newGame.quests = result.quests;
+
+      newGame.map = result;
+      result.forEach((location) => {
+        if (location.quests.length > 0) {
+          for (let i = 0; i < location.quests.length; i++) {
+            newGame.quests.push(location.quests[i]);
+          }
+        }
+      });
     } catch (error) {
       console.log(error);
     }
@@ -133,7 +141,7 @@ const NewGame = () => {
 
   const handleMainMenuClick = () => {
     navigate("/");
-  }
+  };
 
   return (
     <div className="formstyle">

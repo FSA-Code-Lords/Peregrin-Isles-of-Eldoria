@@ -16,16 +16,14 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
 
   return (
     <div id="navBar">
-      {isLoggedIn ? (
-        <>
-          <button className="nav-button" onClick={handleLogoutClick}>
-            Log Out
-          </button>
-          <button className="nav-button" onClick={handleMainMenuClick}>
-            Main Menu
-          </button>
-        </>
-      ) : null}
+      {isLoggedIn && (
+        <button className="nav-button" onClick={handleLogoutClick}>
+          Log Out
+        </button>
+      )}
+      <button className="nav-button" onClick={handleMainMenuClick}>
+        Main Menu
+      </button>
     </div>
   );
 };

@@ -131,9 +131,6 @@ const NewGame = () => {
     }
   };
 
-  const handleMainMenuClick = () => {
-    navigate("/");
-  }
 
   return (
     <div className="formstyle">
@@ -194,7 +191,6 @@ const NewGame = () => {
             <p>Dodge Change: {characterClass.dodgeChange}</p>
           </section>
         ) : null}
-        <button onClick={handleMainMenuClick}>Return To Main Menu</button>
       </div>
     </div>
   );

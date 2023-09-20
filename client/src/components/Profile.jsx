@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
 
-  const handleMainMenuClick = () => {
-    navigate("/");
-  };
 
   useEffect(() => {
     const token = localStorage.getItem(`token`);
@@ -88,9 +83,6 @@ const Profile = () => {
                   );
                 })}
               </ul>
-              <div className='menubutton-container'>
-              <button onClick={handleMainMenuClick}>Return to Main Menu</button>
-              </div>
             </div>
           </>
         ) : (

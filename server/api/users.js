@@ -72,13 +72,26 @@ router.put(`/:id`, requireUser, async (req, res) => {
 router.delete(`/:id`, requireUser, async (req, res) => {
   try {
     if (req.userId === Number(req.params.id) || req.isAdmin) {
-      await prisma.user.delete({
+      const deleteSaveDatas = await prisma.save_Data.deleteMany({
+        where: {
+          userId: Number(req.params.id),
+        },
+      });
+
+      const deleteUser = await prisma.user.delete({
         where: {
           id: Number(req.params.id),
         },
       });
 
-      res.status(200).send({ message: `User deleted` });
+      const transaction = await prisma.$transaction([
+        deleteSaveDatas,
+        deleteUser,
+      ]);
+
+      transaction
+        ? res.status(200).send({ message: `User deleted` })
+        : res.status(404).send({ message: `Error finding user`, error: true });
     } else {
       res
         .status(401)

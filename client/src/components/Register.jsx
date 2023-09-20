@@ -55,10 +55,6 @@ const Register = ({ setIsLoggedIn }) => {
     }
   };
 
-  const handleMainMenuClick = () => {
-    navigate("/");
-  };
-
   return (
     <div className="formstyle">
       <div className="form-container">
@@ -96,7 +92,6 @@ const Register = ({ setIsLoggedIn }) => {
           </div>
           <button type="submit">Register</button>
         </form>
-        <button onClick={handleMainMenuClick}>Return to Main Menu</button>
       </div>
     </div>
   );

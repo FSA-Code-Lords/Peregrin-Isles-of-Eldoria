@@ -61,7 +61,7 @@ const NewGame = () => {
       atkChange: 0,
       dodgeChange: 0,
     });
-    navigate(`/loadGame`);
+    navigate(`/Game`);
   };
 
   const saveGame = async (gameData) => {
@@ -182,7 +182,7 @@ const NewGame = () => {
               <option value="4">Knight</option>
             </select>
           </div>
-          <button type="submit">Create Character</button>
+          <button type="submit">Create Character & Start Game</button>
         </form>
         {characterRace.name ? (
           <section>
@@ -202,7 +202,6 @@ const NewGame = () => {
             <p>Dodge Change: {characterClass.dodgeChange}</p>
           </section>
         ) : null}
-        <button onClick={handleMainMenuClick}>Return To Main Menu</button>
       </div>
     </div>
   );

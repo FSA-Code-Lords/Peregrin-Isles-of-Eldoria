@@ -28,10 +28,6 @@ const LoadGame = () => {
       });
   }, []);
 
-  const handleMainMenuClick = () => {
-    navigate("/");
-  };
-
   return (
     <div className="formstyle">
       <div className="form-container">
@@ -51,7 +47,6 @@ const LoadGame = () => {
             ))}
           </ul>
         )}
-        <button onClick={handleMainMenuClick}>Return To Main Menu</button>
       </div>
     </div>
   );

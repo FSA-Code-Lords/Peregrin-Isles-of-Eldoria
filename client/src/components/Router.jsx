@@ -19,7 +19,10 @@ const Router = ({ isLoggedIn, setIsLoggedIn }) => {
       <Route path="/game" element={<Game />} />
       <Route path="/newgame" element={<NewGame />} />
       <Route path="/userprofile" element={<Profile />} />
-      <Route path="/register" element={<Register />} />
+      <Route
+        path="/register"
+        element={<Register setIsLoggedIn={setIsLoggedIn} />}
+      />
       <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
       <Route path="/loadgame" element={<LoadGame />} />
       <Route path="/credits" element={<Credits />} />

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Register = () => {
+const Register = ({ setIsLoggedIn }) => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -37,6 +37,7 @@ const Register = () => {
 
       if (response.ok) {
         const data = await response.json();
+        console.log(data);
         const token = data.token;
 
         localStorage.setItem(`token`, token);
@@ -44,6 +45,7 @@ const Register = () => {
         window.alert(
           "Successfully Registered! Prepare to explore the Isles of Eldoria!"
         );
+        setIsLoggedIn(true);
         navigate("/newgame");
       } else {
         console.error("Registration failed:", response.statusText);
@@ -58,8 +60,8 @@ const Register = () => {
   };
 
   return (
-    <div className='formstyle'>
-      <div className='form-container'>
+    <div className="formstyle">
+      <div className="form-container">
         <h2>User Registration</h2>
         <form onSubmit={handleSubmit}>
           <div>

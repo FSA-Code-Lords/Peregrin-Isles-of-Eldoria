@@ -203,13 +203,14 @@ figure.mainlogo-container::after {
 .formstyle {
   display: flex;
   justify-content: center;
+  text-align: center;
 }
 
 .form-container {
   background: rgba(255, 255, 255, 0.212);
-  backdrop-filter: blur (8px);
+  backdrop-filter: blur(8px);
   padding: 20px;
-  max-width: 600px;
+  max-width: 1000px;
 }
 
 #github {
@@ -230,4 +231,10 @@ figure.mainlogo-container::after {
 #navBar {
   position: fixed;
   right: 0;
+}
+
+#characterImage {
+  max-width: 1200px;
+  max-height: 500px;
+  margin-top: 15px;
 }

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import characterImage from "../images/Warrior.png";
+
 
 const NewGame = () => {
   const baseStats = { hp: 20, atk: 10, dodge: 10 };
@@ -202,6 +204,9 @@ const NewGame = () => {
             <p>Dodge Change: {characterClass.dodgeChange}</p>
           </section>
         ) : null}
+        <div>
+          <img src={characterImage} alt="Classes and Races" id="characterImage"/>
+        </div>
       </div>
     </div>
   );

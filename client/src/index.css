@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
 
 .main-game {
-  background-position: 80%;
+  background-position: 90%;
   background-size: cover;
   height: 100vh;
 }
@@ -15,8 +15,8 @@
   font-size: large;
   background-color: rgb(203, 203, 178);
   font-family: 'IM Fell English SC', sans-serif;
-  width: 550px;
-  height: 120px;
+  width: 750px;
+  height: 150px;
   overflow: hidden;
 }
 

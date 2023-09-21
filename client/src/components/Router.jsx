@@ -15,7 +15,7 @@ import Quest from "./game/Quest";
 const Router = ({ isLoggedIn, setIsLoggedIn }) => {
   return (
     <Routes>
-      <Route path="/quest/:id" element={<Quest />} />
+      <Route path="/quest" element={<Quest />} />
       <Route path="/game" element={<Game />} />
       <Route path="/newgame" element={<NewGame />} />
       <Route path="/userprofile" element={<Profile />} />

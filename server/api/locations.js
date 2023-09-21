@@ -7,7 +7,21 @@ router.get(`/`, async (req, res) => {
   try {
     const allLocations = await prisma.location.findMany({
       include: {
-        quests: true,
+        quests: {
+          include: {
+            choices: {
+              include: {
+                followUpChoices: {
+                  include: {
+                    followUpChoices: true,
+                  },
+                },
+              },
+            },
+            monsters: true,
+            items: true,
+          },
+        },
         monsters: true,
         items: true,
       },
@@ -30,7 +44,21 @@ router.get(`/:id`, async (req, res) => {
         id: Number(req.params.id),
       },
       include: {
-        quests: true,
+        quests: {
+          include: {
+            choices: {
+              include: {
+                followUpChoices: {
+                  include: {
+                    followUpChoices: true,
+                  },
+                },
+              },
+            },
+            monsters: true,
+            items: true,
+          },
+        },
         monsters: true,
         items: true,
       },

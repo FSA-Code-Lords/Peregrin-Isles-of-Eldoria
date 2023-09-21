@@ -1,35 +1,48 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 
 const Quest = () => {
+  const [saveState, setSaveState] = useState({});
   const [quest, setQuest] = useState({});
   const [choiceSelection, setChoiceSelection] = useState([]);
   const [choice, setChoice] = useState({});
   const [monsters, setMonsters] = useState([]);
   const [chosenMonster, setChosenMonster] = useState({});
   const [log, setLog] = useState(``);
-  const { id } = useParams();
 
-  console.log(chosenMonster);
   useEffect(() => {
-    !quest.name ? fetchQuest(id) : null;
+    if (!saveState.character) {
+      const gameData = JSON.parse(localStorage.getItem(`gameData`));
+      setSaveState(gameData);
+      setQuest(gameData.quests[0]);
+      setMonsters(gameData.quests[0].monsters);
+      setChoiceSelection(gameData.quests[0].choices);
+    }
     chosenMonster.name
       ? setLog(log + `_${chosenMonster.name} has ${chosenMonster.hp} health`)
       : null;
-  }, [chosenMonster]);
 
-  const fetchQuest = async (id) => {
-    try {
-      const response = await fetch(`/api/quests/${id}`);
-      const data = await response.json();
+    if (chosenMonster.hp <= 0) {
+      setChoiceSelection([]);
+      setLog(
+        log +
+          `_${chosenMonster.name} has fallen` +
+          `_You've obtained: ${quest.items.map((item) => `${item.name}, `)}`
+      );
 
-      setQuest(data);
-      setMonsters(data.monsters);
-      setChoiceSelection(data.choices);
-    } catch (error) {
-      console.log(error);
+      saveState.quests[0].monsters.map((monster) => {
+        if (monster.name === chosenMonster.name) {
+          const index = saveState.quests[0].monsters.indexOf(monster);
+          saveState.quests[0].monsters.splice(index, 1);
+        }
+      });
+
+      const newSaveState = { ...saveState };
+
+      setSaveState(newSaveState);
+
+      localStorage.setItem(`gameData`, JSON.stringify(saveState));
     }
-  };
+  }, [chosenMonster]);
 
   const choiceClickHandler = (id) => {
     fetchChoice(id);
@@ -43,7 +56,12 @@ const Quest = () => {
       setChoice(data);
       setChoiceSelection(data.followUpChoices);
       setLog(log + `_${data.action}`);
-      setChosenMonster((chosenMonster.hp -= 10));
+      data.result.includes(`Damage`)
+        ? setChosenMonster({
+            ...chosenMonster,
+            hp: chosenMonster.hp - saveState.character.atk,
+          })
+        : null;
     } catch (error) {
       console.log(error);
     }
@@ -59,7 +77,17 @@ const Quest = () => {
       <p>{quest.description}</p>
       <section>
         <p>What would you like to do?</p>
-        {choiceSelection
+        <select onChange={selectHandler}>
+          {!chosenMonster.name ? <option>Select Monster</option> : null}
+          {monsters.map((monster) => (
+            <option key={monster.id} value={JSON.stringify(monster)}>
+              {monster.name}
+            </option>
+          ))}
+        </select>
+        <br />
+        <br />
+        {chosenMonster.name
           ? choiceSelection.map((choice) => (
               <button
                 key={choice.id}
@@ -69,15 +97,6 @@ const Quest = () => {
               </button>
             ))
           : null}
-        <br />
-        <select onChange={selectHandler}>
-          {!chosenMonster.name ? <option>Select Monster</option> : null}
-          {monsters.map((monster) => (
-            <option key={monster.id} value={JSON.stringify(monster)}>
-              {monster.name}
-            </option>
-          ))}
-        </select>
       </section>
       <section>
         {log.split(`_`).map((singleLog, index) => (

@@ -72,38 +72,40 @@ const Quest = () => {
   };
 
   return (
-    <>
-      <h1>Quest: {quest.name}</h1>
-      <p>{quest.description}</p>
-      <section>
-        <p>What would you like to do?</p>
-        <select onChange={selectHandler}>
-          {!chosenMonster.name ? <option>Select Monster</option> : null}
-          {monsters.map((monster) => (
-            <option key={monster.id} value={JSON.stringify(monster)}>
-              {monster.name}
-            </option>
+    <section className="formstyle">
+      <section className="form-container">
+        <h1>Quest: {quest.name}</h1>
+        <p>{quest.description}</p>
+        <section>
+          <p>What would you like to do?</p>
+          <select onChange={selectHandler}>
+            {!chosenMonster.name ? <option>Select Monster</option> : null}
+            {monsters.map((monster) => (
+              <option key={monster.id} value={JSON.stringify(monster)}>
+                {monster.name}
+              </option>
+            ))}
+          </select>
+          <br />
+          <br />
+          {chosenMonster.name
+            ? choiceSelection.map((choice) => (
+                <button
+                  key={choice.id}
+                  onClick={() => choiceClickHandler(choice.id)}
+                >
+                  {choice.name}
+                </button>
+              ))
+            : null}
+        </section>
+        <section>
+          {log.split(`_`).map((singleLog, index) => (
+            <p key={index}>{singleLog}</p>
           ))}
-        </select>
-        <br />
-        <br />
-        {chosenMonster.name
-          ? choiceSelection.map((choice) => (
-              <button
-                key={choice.id}
-                onClick={() => choiceClickHandler(choice.id)}
-              >
-                {choice.name}
-              </button>
-            ))
-          : null}
+        </section>
       </section>
-      <section>
-        {log.split(`_`).map((singleLog, index) => (
-          <p key={index}>{singleLog}</p>
-        ))}
-      </section>
-    </>
+    </section>
   );
 };
 

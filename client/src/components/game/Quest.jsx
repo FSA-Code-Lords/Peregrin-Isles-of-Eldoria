@@ -7,7 +7,10 @@ const Quest = () => {
   const [choice, setChoice] = useState({});
   const [monsters, setMonsters] = useState([]);
   const [chosenMonster, setChosenMonster] = useState({});
+  const [isMyTurn, setIsMyTurn] = useState(true);
   const [log, setLog] = useState(``);
+
+  console.log(saveState);
 
   useEffect(() => {
     if (!saveState.character) {
@@ -17,6 +20,49 @@ const Quest = () => {
       setMonsters(gameData.quests[0].monsters);
       setChoiceSelection(gameData.quests[0].choices);
     }
+  }, []);
+
+  // useEffect(() => {
+  //   saveState.character
+  //     ? setLog(log + `_You have ${saveState.character.hp} health`)
+  //     : null;
+  // }, []);
+
+  useEffect(() => {
+    if (choice.name) {
+      if (choice.result.includes(`Damage`)) {
+        setChosenMonster({
+          ...chosenMonster,
+          hp: chosenMonster.hp - saveState.character.atk,
+        });
+        setChoice({});
+        setIsMyTurn(false);
+      }
+    }
+
+    if (!isMyTurn) {
+      setSaveState({
+        ...saveState,
+        character: {
+          ...saveState.character,
+          hp: saveState.character.hp - chosenMonster.atk,
+        },
+      });
+      setIsMyTurn(true);
+    }
+  }, [isMyTurn, choice]);
+
+  useEffect(() => {
+    chosenMonster.name
+      ? setLog(
+          log +
+            `_${chosenMonster.name} attacks!` +
+            `_You now have ${saveState.character.hp} health`
+        )
+      : null;
+  }, [saveState]);
+
+  useEffect(() => {
     chosenMonster.name
       ? setLog(log + `_${chosenMonster.name} has ${chosenMonster.hp} health`)
       : null;
@@ -46,6 +92,7 @@ const Quest = () => {
 
   const choiceClickHandler = (id) => {
     fetchChoice(id);
+    console.log(choice);
   };
 
   const fetchChoice = async (id) => {
@@ -56,12 +103,6 @@ const Quest = () => {
       setChoice(data);
       setChoiceSelection(data.followUpChoices);
       setLog(log + `_${data.action}`);
-      data.result.includes(`Damage`)
-        ? setChosenMonster({
-            ...chosenMonster,
-            hp: chosenMonster.hp - saveState.character.atk,
-          })
-        : null;
     } catch (error) {
       console.log(error);
     }

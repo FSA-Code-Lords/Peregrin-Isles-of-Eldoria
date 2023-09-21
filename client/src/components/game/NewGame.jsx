@@ -141,10 +141,6 @@ const NewGame = () => {
     }
   };
 
-  const handleMainMenuClick = () => {
-    navigate("/");
-  };
-
   return (
     <div className="formstyle">
       <div className="form-container">

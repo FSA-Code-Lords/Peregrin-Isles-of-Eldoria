@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Game = () => {
   const [currentLocation, setCurrentLocation] = useState(`1`);
@@ -6,9 +7,10 @@ const Game = () => {
   const [locationOptions, setLocationOptions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [gameData, setGameData] = useState(null);
+  const navigate = useNavigate(); // Import the useNavigate hook
 
   useEffect(() => {
-    const localStorageData = JSON.parse(localStorage.getItem("gameData"));
+    const localStorageData = JSON.parse(localStorage.getItem('gameData'));
     const options = localStorageData.map.map((location) => (
       <option key={location.id} value={location.id}>
         {location.name}
@@ -38,16 +40,19 @@ const Game = () => {
     setSelectedLocationId(event.target.value);
   };
 
-
   const saveGame = () => {
     try {
-      localStorage.setItem("gameData", JSON.stringify(gameData));
-      alert("Game Successfully Saved!");
+      localStorage.setItem('gameData', JSON.stringify(gameData));
+      alert('Game Successfully Saved!');
     } catch (error) {
-      console.error("Error saving game data:", error);
+      console.error('Error saving game data:', error);
     }
   };
-  
+
+  const goToQuest = () => {
+    // Use navigate to route to /quest
+    navigate('/quest');
+  };
 
   return (
     <div className="main-game" style={{ backgroundImage: `url(${currentLocation?.locationImg || ''})` }}>
@@ -73,6 +78,9 @@ const Game = () => {
           {isLoading ? 'Loading...' : 'Travel'}
         </button>
         <button onClick={saveGame}>Save Game</button>
+        {currentLocation.id === 7 && ( // Check if the current location is Black Thorn Tavern (id: 7)
+          <button onClick={goToQuest}>Click to Begin Quest</button>
+        )}
       </div>
     </div>
   );

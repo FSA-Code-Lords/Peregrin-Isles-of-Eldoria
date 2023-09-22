@@ -8,25 +8,15 @@ const Game = () => {
   const [gameData, setGameData] = useState(null);
 
   useEffect(() => {
-    const fetchAllLocations = async () => {
-      try {
-        const response = await fetch('/api/locations');
-        const locations = await response.json();
-
-        const options = locations.map((location) => (
-          <option key={location.id} value={location.id}>
-            {location.name}
-          </option>
-        ));
-
-        setLocationOptions(options);
-        
-      } catch (error) {
-        console.error('Error fetching location data:', error);
-      }
-    };
+    const localStorageData = JSON.parse(localStorage.getItem("gameData"));
+    const options = localStorageData.map.map((location) => (
+      <option key={location.id} value={location.id}>
+        {location.name}
+      </option>
+    ));
+    setGameData(localStorageData);
+    setLocationOptions(options);
     handleTravelClick(1);
-    fetchAllLocations();
   }, []);
 
   const handleTravelClick = async (id) => {

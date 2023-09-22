@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const Home = ({ isLoggedIn }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [token, setToken] = useState(``);
-
-  const navigate = useNavigate();
-  console.log(token);
 
   useEffect(() => {
     if (localStorage.getItem(`token`)) {

@@ -7,11 +7,9 @@ const Quest = () => {
   const [choice, setChoice] = useState({});
   const [monsters, setMonsters] = useState([]);
   const [chosenMonster, setChosenMonster] = useState({});
-  const [isMyTurn, setIsMyTurn] = useState(true);
+  const [isMyTurn, setIsMyTurn] = useState(null);
   const [log, setLog] = useState(``);
-
-  console.log(saveState);
-
+  console.log(monsters);
   useEffect(() => {
     if (!saveState.character) {
       const gameData = JSON.parse(localStorage.getItem(`gameData`));
@@ -19,36 +17,15 @@ const Quest = () => {
       setQuest(gameData.quests[0]);
       setMonsters(gameData.quests[0].monsters);
       setChoiceSelection(gameData.quests[0].choices);
+      setLog(log + `_You have ${gameData.character.hp} health`);
     }
   }, []);
 
-  // useEffect(() => {
-  //   saveState.character
-  //     ? setLog(log + `_You have ${saveState.character.hp} health`)
-  //     : null;
-  // }, []);
-
   useEffect(() => {
     if (choice.name) {
-      if (choice.result.includes(`Damage`)) {
-        setChosenMonster({
-          ...chosenMonster,
-          hp: chosenMonster.hp - saveState.character.atk,
-        });
-        setChoice({});
-        setIsMyTurn(false);
-      }
-    }
-
-    if (!isMyTurn) {
-      setSaveState({
-        ...saveState,
-        character: {
-          ...saveState.character,
-          hp: saveState.character.hp - chosenMonster.atk,
-        },
-      });
-      setIsMyTurn(true);
+      yourTurn();
+    } else if (isMyTurn === false) {
+      monstersTurn();
     }
   }, [isMyTurn, choice]);
 
@@ -90,9 +67,56 @@ const Quest = () => {
     }
   }, [chosenMonster]);
 
+  const yourTurn = () => {
+    if (choice.result.includes(`Damage`)) {
+      const dodgeChance = Math.ceil(Math.random() * 100);
+
+      if (chosenMonster.dodge >= dodgeChance) {
+        setLog(log + `_${chosenMonster.name} dodged!`);
+        setChoice({});
+        setIsMyTurn(false);
+      } else {
+        setChosenMonster({
+          ...chosenMonster,
+          hp: chosenMonster.hp - saveState.character.atk,
+        });
+        setChoice({});
+        setIsMyTurn(false);
+      }
+    } else if (choice.result.includes(`Sneaking`)) {
+      console.log(choice);
+      const sneakChance = Math.floor(Math.random() * 4);
+      console.log(sneakChance);
+      if (sneakChance < 1) {
+        setLog(log + `_${choice.result} success!`);
+      } else {
+        setLog(log + `_${choice.result} failed. You are attacked!`);
+        setChoice({});
+        monstersTurn();
+      }
+    }
+  };
+
+  const monstersTurn = () => {
+    const dodgeChance = Math.ceil(Math.random() * 100);
+
+    if (saveState.character.dodge >= dodgeChance) {
+      setLog(log + `_You dodged!`);
+      setIsMyTurn(true);
+    } else {
+      setSaveState({
+        ...saveState,
+        character: {
+          ...saveState.character,
+          hp: saveState.character.hp - chosenMonster.atk,
+        },
+      });
+      setIsMyTurn(true);
+    }
+  };
+
   const choiceClickHandler = (id) => {
     fetchChoice(id);
-    console.log(choice);
   };
 
   const fetchChoice = async (id) => {

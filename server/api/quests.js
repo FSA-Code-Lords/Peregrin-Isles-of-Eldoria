@@ -17,6 +17,8 @@ router.get(`/`, async (req, res) => {
             },
           },
         },
+        monsters: true,
+        items: true,
       },
     });
 
@@ -45,6 +47,7 @@ router.get(`/:id`, async (req, res) => {
           },
         },
         monsters: true,
+        items: true,
       },
     });
 

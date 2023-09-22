@@ -1,33 +1,117 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 
 const Quest = () => {
+  const [saveState, setSaveState] = useState({});
   const [quest, setQuest] = useState({});
   const [choiceSelection, setChoiceSelection] = useState([]);
   const [choice, setChoice] = useState({});
   const [monsters, setMonsters] = useState([]);
   const [chosenMonster, setChosenMonster] = useState({});
+  const [isMyTurn, setIsMyTurn] = useState(null);
   const [log, setLog] = useState(``);
-  const { id } = useParams();
-
-  console.log(chosenMonster);
+  console.log(monsters);
   useEffect(() => {
-    !quest.name ? fetchQuest(id) : null;
+    if (!saveState.character) {
+      const gameData = JSON.parse(localStorage.getItem(`gameData`));
+      setSaveState(gameData);
+      setQuest(gameData.quests[0]);
+      setMonsters(gameData.quests[0].monsters);
+      setChoiceSelection(gameData.quests[0].choices);
+      setLog(log + `_You have ${gameData.character.hp} health`);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (choice.name) {
+      yourTurn();
+    } else if (isMyTurn === false) {
+      monstersTurn();
+    }
+  }, [isMyTurn, choice]);
+
+  useEffect(() => {
+    chosenMonster.name
+      ? setLog(
+          log +
+            `_${chosenMonster.name} attacks!` +
+            `_You now have ${saveState.character.hp} health`
+        )
+      : null;
+  }, [saveState]);
+
+  useEffect(() => {
     chosenMonster.name
       ? setLog(log + `_${chosenMonster.name} has ${chosenMonster.hp} health`)
       : null;
+
+    if (chosenMonster.hp <= 0) {
+      setChoiceSelection([]);
+      setLog(
+        log +
+          `_${chosenMonster.name} has fallen` +
+          `_You've obtained: ${quest.items.map((item) => `${item.name}, `)}`
+      );
+
+      saveState.quests[0].monsters.map((monster) => {
+        if (monster.name === chosenMonster.name) {
+          const index = saveState.quests[0].monsters.indexOf(monster);
+          saveState.quests[0].monsters.splice(index, 1);
+        }
+      });
+
+      const newSaveState = { ...saveState };
+
+      setSaveState(newSaveState);
+
+      localStorage.setItem(`gameData`, JSON.stringify(saveState));
+    }
   }, [chosenMonster]);
 
-  const fetchQuest = async (id) => {
-    try {
-      const response = await fetch(`/api/quests/${id}`);
-      const data = await response.json();
+  const yourTurn = () => {
+    if (choice.result.includes(`Damage`)) {
+      const dodgeChance = Math.ceil(Math.random() * 100);
 
-      setQuest(data);
-      setMonsters(data.monsters);
-      setChoiceSelection(data.choices);
-    } catch (error) {
-      console.log(error);
+      if (chosenMonster.dodge >= dodgeChance) {
+        setLog(log + `_${chosenMonster.name} dodged!`);
+        setChoice({});
+        setIsMyTurn(false);
+      } else {
+        setChosenMonster({
+          ...chosenMonster,
+          hp: chosenMonster.hp - saveState.character.atk,
+        });
+        setChoice({});
+        setIsMyTurn(false);
+      }
+    } else if (choice.result.includes(`Sneaking`)) {
+      console.log(choice);
+      const sneakChance = Math.floor(Math.random() * 4);
+      console.log(sneakChance);
+      if (sneakChance < 1) {
+        setLog(log + `_${choice.result} success!`);
+      } else {
+        setLog(log + `_${choice.result} failed. You are attacked!`);
+        setChoice({});
+        monstersTurn();
+      }
+    }
+  };
+
+  const monstersTurn = () => {
+    const dodgeChance = Math.ceil(Math.random() * 100);
+
+    if (saveState.character.dodge >= dodgeChance) {
+      setLog(log + `_You dodged!`);
+      setIsMyTurn(true);
+    } else {
+      setSaveState({
+        ...saveState,
+        character: {
+          ...saveState.character,
+          hp: saveState.character.hp - chosenMonster.atk,
+        },
+      });
+      setIsMyTurn(true);
     }
   };
 
@@ -43,7 +127,6 @@ const Quest = () => {
       setChoice(data);
       setChoiceSelection(data.followUpChoices);
       setLog(log + `_${data.action}`);
-      setChosenMonster((chosenMonster.hp -= 10));
     } catch (error) {
       console.log(error);
     }
@@ -54,37 +137,40 @@ const Quest = () => {
   };
 
   return (
-    <>
-      <h1>Quest: {quest.name}</h1>
-      <p>{quest.description}</p>
-      <section>
-        <p>What would you like to do?</p>
-        {choiceSelection
-          ? choiceSelection.map((choice) => (
-              <button
-                key={choice.id}
-                onClick={() => choiceClickHandler(choice.id)}
-              >
-                {choice.name}
-              </button>
-            ))
-          : null}
-        <br />
-        <select onChange={selectHandler}>
-          {!chosenMonster.name ? <option>Select Monster</option> : null}
-          {monsters.map((monster) => (
-            <option key={monster.id} value={JSON.stringify(monster)}>
-              {monster.name}
-            </option>
+    <section className="formstyle">
+      <section className="form-container">
+        <h1>Quest: {quest.name}</h1>
+        <p>{quest.description}</p>
+        <section>
+          <p>What would you like to do?</p>
+          <select onChange={selectHandler}>
+            {!chosenMonster.name ? <option>Select Monster</option> : null}
+            {monsters.map((monster) => (
+              <option key={monster.id} value={JSON.stringify(monster)}>
+                {monster.name}
+              </option>
+            ))}
+          </select>
+          <br />
+          <br />
+          {chosenMonster.name
+            ? choiceSelection.map((choice) => (
+                <button
+                  key={choice.id}
+                  onClick={() => choiceClickHandler(choice.id)}
+                >
+                  {choice.name}
+                </button>
+              ))
+            : null}
+        </section>
+        <section>
+          {log.split(`_`).map((singleLog, index) => (
+            <p key={index}>{singleLog}</p>
           ))}
-        </select>
+        </section>
       </section>
-      <section>
-        {log.split(`_`).map((singleLog, index) => (
-          <p key={index}>{singleLog}</p>
-        ))}
-      </section>
-    </>
+    </section>
   );
 };
 

@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const Admin = () => {
   const [users, setUsers] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
   const [changesHappened, setChangesHappened] = useState(false);
-  const [saveData, setsaveData] = useState([]);
-
-  const navigate = useNavigate();
-
-  const token = localStorage.getItem(`token`);
+  const [saveData, setsaveData] = useState([])
 
   // checkIfAdmin useEffect
   useEffect(() => {

@@ -20,6 +20,13 @@ const LoadGame = () => {
     }
   }, []);
 
+  // Function to load a saved game when a button is clicked
+  const loadSavedGame = (savedGame) => {
+    localStorage.setItem("gameData", JSON.stringify(savedGame));
+    alert("Game Successfully Loaded!"); // Optionally, you can show a message
+    navigate("/game"); // Redirect to the game page
+  };
+
   return (
     <div className="formstyle">
       <div className="form-container">
@@ -34,6 +41,9 @@ const LoadGame = () => {
                 <p>Race: {savedGame.character.race}</p>
                 <p>Class: {savedGame.character.class}</p>
                 {/* Add more details as needed */}
+                <button onClick={() => loadSavedGame(savedGame)}>
+                  Load Game
+                </button>
               </div>
             ))}
           </ul>

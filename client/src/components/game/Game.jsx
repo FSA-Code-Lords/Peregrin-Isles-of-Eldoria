@@ -40,9 +40,14 @@ const Game = () => {
 
 
   const saveGame = () => {
-    localStorage.setItem('gameData', JSON.stringify(gameData));
-    // hopefully this path works ^^^ :)
+    try {
+      localStorage.setItem("gameData", JSON.stringify(gameData));
+      alert("Game Successfully Saved!");
+    } catch (error) {
+      console.error("Error saving game data:", error);
+    }
   };
+  
 
   return (
     <div className="main-game" style={{ backgroundImage: `url(${currentLocation?.locationImg || ''})` }}>

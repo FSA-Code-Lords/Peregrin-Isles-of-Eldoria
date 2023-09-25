@@ -48,45 +48,41 @@ const Profile = () => {
           <>
             <h2>{userData.username}</h2>
             <div>
-              <h3>Saved Games:</h3>
-              <ul>
+              <div>
                 {userData.savedGames.map((game, index) => {
                   const parsedGame = JSON.parse(game.serializedData);
                   return (
-                    <li key={index}>
-                      <h4>Game {index + 1}</h4>
+                    <div key={index}>
+                      <h3>Game {index + 1}: {parsedGame.character.name}</h3>
                       <div>
-                        <h5>Character Info:</h5>
                         {parsedGame.character && (
                           <>
-                            <p>Name: {parsedGame.character.name}</p>
-                            <p>Race: {parsedGame.character.race}</p>
-                            <p>Class: {parsedGame.character.class}</p>
-                            <p>HP: {parsedGame.character.hp}</p>
-                            <p>Attack: {parsedGame.character.atk}</p>
+                            <p><b>Race:</b> {parsedGame.character.race}. <b>Class:</b> {parsedGame.character.class}.</p>
+                            <p><b>HP: </b>{parsedGame.character.hp}. <b>Attack:</b> {parsedGame.character.atk}.</p>
                           </>
                         )}
                       </div>
                       <div>
-                        <h5>Quests:</h5>
-                        <ul>
+                        <h4>Quests:</h4>
+                        <div>
                           {parsedGame.quests &&
                             parsedGame.quests.map((quest, questIndex) => (
-                              <li key={questIndex}>
+                              <div key={questIndex}>
                                 {quest.name && (
                                   <p>Quest Name: {quest.name}</p>
                                 )}
                                 {quest.description && (
                                   <p>Quest Description: {quest.description}</p>
                                 )}
-                              </li>
+                              <hr></hr>
+                              </div>
                             ))}
-                        </ul>
+                        </div>
                       </div>
-                    </li>
+                    </div>
                   );
                 })}
-              </ul>
+              </div>
             </div>
           </>
         ) : (

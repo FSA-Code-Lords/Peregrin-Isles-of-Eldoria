@@ -8,6 +8,8 @@ const Register = ({ setIsLoggedIn }) => {
     confirmPassword: "",
   });
 
+  const navigate = useNavigate();
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });

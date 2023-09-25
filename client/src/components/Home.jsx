@@ -3,14 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 const Home = ({ isLoggedIn }) => {
   const [isAdmin, setIsAdmin] = useState(false);
-  const [token, setToken] = useState(``);
-
   const navigate = useNavigate();
-  console.log(token);
 
   useEffect(() => {
     if (localStorage.getItem(`token`)) {
-      setToken(localStorage.getItem(`token`));
       const tokenArr = localStorage.getItem(`token`).split(`.`);
       const { id } = JSON.parse(atob(tokenArr[1]));
 

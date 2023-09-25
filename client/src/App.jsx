@@ -1,7 +1,6 @@
 import Router from "./components/Router";
 import Navbar from "./components/bars/Navbar";
 import Footerbar from "./components/bars/Footerbar";
-import Utils from "./components/Utils";
 import { useEffect, useState } from "react";
 
 const App = () => {
@@ -11,8 +10,6 @@ const App = () => {
       setIsLoggedIn(true);
     }
   }, [isLoggedIn]);
-
-  <Utils />
 
   return (
     <>

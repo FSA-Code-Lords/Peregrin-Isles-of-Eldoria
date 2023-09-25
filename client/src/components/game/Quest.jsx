@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 const Quest = () => {
   const [saveState, setSaveState] = useState({});
@@ -9,36 +10,62 @@ const Quest = () => {
   const [chosenMonster, setChosenMonster] = useState({});
   const [isMyTurn, setIsMyTurn] = useState(null);
   const [log, setLog] = useState(``);
-  console.log(monsters);
+  const { id } = useParams();
+
+  const navigate = useNavigate();
+
+  // initial load
   useEffect(() => {
     if (!saveState.character) {
       const gameData = JSON.parse(localStorage.getItem(`gameData`));
       setSaveState(gameData);
-      setQuest(gameData.quests[0]);
-      setMonsters(gameData.quests[0].monsters);
-      setChoiceSelection(gameData.quests[0].choices);
+
+      const sentQuest = gameData.quests.find(
+        (quest) => quest.id === Number(id)
+      );
+
+      setQuest(sentQuest);
+      setMonsters(sentQuest.monsters);
+      setChoiceSelection(sentQuest.choices);
       setLog(log + `_You have ${gameData.character.hp} health`);
     }
   }, []);
 
+  // determines who attacks
   useEffect(() => {
     if (choice.name) {
       yourTurn();
-    } else if (isMyTurn === false) {
+    } else if (isMyTurn === false && chosenMonster.hp > 0) {
       monstersTurn();
     }
   }, [isMyTurn, choice]);
 
+  // updates log when monster attacks
   useEffect(() => {
-    chosenMonster.name
-      ? setLog(
-          log +
-            `_${chosenMonster.name} attacks!` +
-            `_You now have ${saveState.character.hp} health`
-        )
-      : null;
+    if (chosenMonster.name) {
+      if (chosenMonster.hp > 0) {
+        if (saveState.character.hp < 0) {
+          setChoiceSelection([]);
+          setMonsters([]);
+
+          setLog(
+            log +
+              `_${chosenMonster.name} attacks!` +
+              `_You now have ${saveState.character.hp} health` +
+              `_${quest.failedMessage}`
+          );
+        } else {
+          setLog(
+            log +
+              `_${chosenMonster.name} attacks!` +
+              `_You now have ${saveState.character.hp} health`
+          );
+        }
+      }
+    }
   }, [saveState]);
 
+  // updated log when user attacks
   useEffect(() => {
     chosenMonster.name
       ? setLog(log + `_${chosenMonster.name} has ${chosenMonster.hp} health`)
@@ -46,18 +73,40 @@ const Quest = () => {
 
     if (chosenMonster.hp <= 0) {
       setChoiceSelection([]);
+
       setLog(
         log +
           `_${chosenMonster.name} has fallen` +
           `_You've obtained: ${quest.items.map((item) => `${item.name}, `)}`
       );
 
-      saveState.quests[0].monsters.map((monster) => {
+      saveState.map.forEach((location) => {
+        location.quests.forEach((locationQuest) => {
+          if (locationQuest.name === quest.name) {
+            const index = location.quests.indexOf(quest);
+            location.quests.splice(index, 1);
+          }
+        });
+      });
+      const index = saveState.quests.indexOf(quest);
+      saveState.quests.splice(index, 1);
+
+      quest.monsters.forEach((monster) => {
         if (monster.name === chosenMonster.name) {
-          const index = saveState.quests[0].monsters.indexOf(monster);
-          saveState.quests[0].monsters.splice(index, 1);
+          const index = quest.monsters.indexOf(monster);
+          quest.monsters.splice(index, 1);
         }
       });
+
+      quest.items.forEach((item) => {
+        saveState.inventory.push(item);
+        const index = quest.items.indexOf(item);
+        quest.items.splice(index, 1);
+      });
+
+      setQuest({ ...quest, isCompleted: true });
+
+      saveState.completedQuests.push(quest);
 
       const newSaveState = { ...saveState };
 
@@ -151,6 +200,9 @@ const Quest = () => {
               </option>
             ))}
           </select>
+          {choiceSelection.length === 0 ? (
+            <button onClick={() => navigate(`/game`)}>Return Home</button>
+          ) : null}
           <br />
           <br />
           {chosenMonster.name

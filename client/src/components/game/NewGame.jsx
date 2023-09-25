@@ -42,8 +42,6 @@ const NewGame = () => {
     completedQuests: [],
   };
 
-  console.log(newGame);
-
   useEffect(() => {
     fetchLocations();
   }, [characterClass, characterName, characterRace]);

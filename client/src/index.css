@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap");
 
 .main-game {
   background-position: 90%;
@@ -14,10 +14,25 @@
   align-items: center;
   font-size: large;
   background-color: rgb(203, 203, 178);
-  font-family: 'IM Fell English SC', sans-serif;
+  font-family: "IM Fell English SC", sans-serif;
   width: 750px;
   height: 150px;
   overflow: hidden;
+}
+
+.quest-container {
+  background: rgba(255, 255, 255, 0.212);
+  backdrop-filter: blur(8px);
+  padding: 20px;
+  position: relative;
+  margin: auto;
+  font-size: large;
+  width: 700px;
+}
+
+.quest {
+  border: black 3px solid;
+  padding: 10px;
 }
 
 .choice-buttons {
@@ -40,8 +55,6 @@
   margin-right: 30px;
 }
 
-
-
 body {
   background-image: url("https://images.hdqwalls.com/wallpapers/misty-yosemite-rd.jpg");
   background-size: cover;
@@ -49,7 +62,6 @@ body {
   height: 100vh;
   margin: 0;
 }
-
 
 figure.mainlogo-container {
   position: relative;
@@ -63,14 +75,13 @@ figure.mainlogo-container {
   overflow: hidden;
 }
 
-
 h1.logo-text {
   font-size: 50px;
   text-align: center;
   margin: 0;
   padding: 10px;
   color: black;
-  font-family: 'IM Fell English SC', sans-serif;
+  font-family: "IM Fell English SC", sans-serif;
 }
 
 figure.mainlogo-container::before,
@@ -88,7 +99,6 @@ figure.mainlogo-container::before {
   top: 0;
   left: 0;
 }
-
 
 figure.mainlogo-container::after {
   border-bottom-color: rgba(0, 0, 0, 0.1);
@@ -131,7 +141,7 @@ figure.mainlogo-container::after {
   border-top-right-radius: 40%;
   background-color: #f1c40f;
   position: relative;
-  margin: 0; 
+  margin: 0;
 }
 
 .flame {
@@ -198,7 +208,6 @@ figure.mainlogo-container::after {
   position: relative;
   top: 10px;
 }
-
 
 .formstyle {
   display: flex;

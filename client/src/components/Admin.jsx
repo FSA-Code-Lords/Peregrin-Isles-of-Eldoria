@@ -140,9 +140,6 @@ const Admin = () => {
                   <p>
                     <b>Save Files</b>
                   </p>
-                  <p>
-                    <i>Save files will go here.</i>
-                  </p>
                   <p>{}</p>
                   <button onClick={() => deleteHandler(user.id)}>
                     Delete User

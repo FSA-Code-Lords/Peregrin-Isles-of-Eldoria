@@ -12,7 +12,7 @@ datasource db {
 
 model Item {
   id          Int        @id @default(autoincrement())
-  name        String     @unique @db.VarChar(20)
+  name        String     @unique @db.VarChar(255)
   description String     @db.Text
   locations   Location[]
   quests      Quest[]
@@ -20,7 +20,7 @@ model Item {
 
 model Quest {
   id                Int        @id @default(autoincrement())
-  name              String     @unique @db.VarChar(20)
+  name              String     @unique @db.VarChar(255)
   description       String     @db.Text
   completionMessage String     @db.Text
   failedMessage     String     @db.Text
@@ -33,7 +33,7 @@ model Quest {
 
 model Choice {
   id              Int        @id @default(autoincrement())
-  name            String     @unique @db.VarChar(20)
+  name            String     @unique @db.VarChar(255)
   action          String     @db.Text
   result          String     @db.Text
   locations       Location[]
@@ -44,7 +44,7 @@ model Choice {
 
 model Monster {
   id       Int        @id @default(autoincrement())
-  name     String     @unique @db.VarChar(20)
+  name     String     @unique @db.VarChar(255)
   hp       Int
   atk      Int
   dodge    Int
@@ -65,7 +65,7 @@ model Location {
 
 model Class {
   id          Int    @id @default(autoincrement())
-  name        String @unique @db.VarChar(20)
+  name        String @unique @db.VarChar(255)
   description String @db.Text
   hpChange    Int
   atkChange   Int
@@ -74,7 +74,7 @@ model Class {
 
 model Race {
   id          Int    @id @default(autoincrement())
-  name        String @unique @db.VarChar(20)
+  name        String @unique @db.VarChar(255)
   description String @db.Text
   hpChange    Int
   atkChange   Int
@@ -90,7 +90,7 @@ model Save_Data {
 
 model User {
   id       Int         @id @default(autoincrement())
-  username String      @unique @db.VarChar(20)
+  username String      @unique @db.VarChar(255)
   password String      @db.VarChar(255)
   isAdmin  Boolean     @default(false) @db.Boolean
   isBanned Boolean     @default(false) @db.Boolean

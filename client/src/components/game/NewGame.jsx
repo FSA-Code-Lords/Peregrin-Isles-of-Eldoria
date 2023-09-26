@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import characterImage from "../images/Warrior.png";
 
-
 const NewGame = () => {
-  const baseStats = { hp: 20, atk: 10, dodge: 10 };
+  const [saveDataId, setSaveDataId] = useState(null);
+  const [saveData, setSaveData] = useState({});
+
+  const baseStats = { hp: 40, atk: 10, dodge: 30 };
   const [characterName, setCharacterName] = useState(``);
   const [characterClass, setCharacterClass] = useState({
     hpChange: 0,
@@ -24,10 +26,12 @@ const NewGame = () => {
   const userId = JSON.parse(atob(tokenArr[1])).id;
 
   const newGame = {
+    saveDataId: undefined,
     character: {
       name: characterName,
       race: characterRace.name,
       class: characterClass.name,
+      maxHp: baseStats.hp + characterClass.hpChange + characterRace.hpChange,
       hp: baseStats.hp + characterClass.hpChange + characterRace.hpChange,
       atk: baseStats.atk + characterClass.atkChange + characterRace.atkChange,
       dodge:
@@ -46,10 +50,38 @@ const NewGame = () => {
     fetchLocations();
   }, [characterClass, characterName, characterRace]);
 
+  useEffect(() => {
+    if (saveDataId) {
+      console.log(saveData);
+      localStorage.setItem(`gameData`, JSON.stringify(saveData));
+      saveGame(saveDataId, JSON.stringify(saveData));
+      navigate(`/Game`);
+    }
+  }, [saveDataId]);
+
+  const saveGame = async (saveDataId, gameData) => {
+    try {
+      const response = await fetch(`/api/saveData/${saveDataId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          serializedData: gameData,
+        }),
+      });
+
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    localStorage.setItem(`gameData`, JSON.stringify(newGame));
-    saveGame(JSON.stringify(newGame));
+    initialSaveGame(JSON.stringify(newGame));
     event.target.reset();
     setCharacterClass({
       hpChange: 0,
@@ -61,12 +93,11 @@ const NewGame = () => {
       atkChange: 0,
       dodgeChange: 0,
     });
-    navigate(`/Game`);
   };
 
-  const saveGame = async (gameData) => {
+  const initialSaveGame = async (gameData) => {
     try {
-      const response = await fetch(`/api/SaveData`, {
+      const response = await fetch(`/api/saveData`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -80,6 +111,8 @@ const NewGame = () => {
 
       const result = await response.json();
       console.log(result);
+      setSaveData({ ...newGame, saveDataId: result.saveData.id });
+      setSaveDataId(result.saveData.id);
     } catch (error) {
       console.log(error);
     }
@@ -199,7 +232,11 @@ const NewGame = () => {
           </section>
         ) : null}
         <div>
-          <img src={characterImage} alt="Classes and Races" id="characterImage"/>
+          <img
+            src={characterImage}
+            alt="Classes and Races"
+            id="characterImage"
+          />
         </div>
       </div>
     </div>

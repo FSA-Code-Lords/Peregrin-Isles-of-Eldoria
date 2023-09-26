@@ -247,3 +247,21 @@ figure.mainlogo-container::after {
   max-height: 500px;
   margin-top: 15px;
 }
+
+.loadGame {
+  border-bottom: rgb(189, 185, 185) solid 3px;
+  padding: 20px;
+}
+
+.characterName {
+  font-weight: bolder;
+  font-size: larger;
+}
+
+.loadGame > span {
+  padding: 10px;
+}
+
+/* .spacer {
+  height: 50px;
+} */

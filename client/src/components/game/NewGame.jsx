@@ -21,8 +21,6 @@ const NewGame = () => {
   const [characterClass, setCharacterClass] = useState(defaultCharacterClass);
   const [characterRace, setCharacterRace] = useState(defaultCharacterRace);
 
-  
-
   const navigate = useNavigate();
 
   const token = localStorage.getItem(`token`);

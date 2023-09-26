@@ -4,6 +4,7 @@ import linkedinThumbnail from "../images/linkedinThumbnail.png";
 const Footerbar = () => {
   return (
     <>
+      {/* <div className="spacer"></div> */}
       <div id="footerbar-container">
         {/* <div id="copyrightBar" align="center">
           &copy; 2023 PIE Team 
@@ -13,29 +14,35 @@ const Footerbar = () => {
             <span>Loulian Liu</span> &ensp;
             <a href="https://github.com/loulian444" target="blank">
               <img src={githubThumbnail} className="imageThumbnail"></img>
-            </a> &ensp;
+            </a>{" "}
+            &ensp;
             <a href="https://www.linkedin.com/in/loulianliu/" target="blank">
-            <img src={linkedinThumbnail} className="imageThumbnail"></img>
+              <img src={linkedinThumbnail} className="imageThumbnail"></img>
             </a>
-          </div>      
+          </div>
           <div>
             <span>Edward Jacobian</span>&ensp;
             <a href="https://github.com/edjacobian" target="blank">
               <img src={githubThumbnail} className="imageThumbnail"></img>
-            </a> &ensp;
-            <a href="https://www.linkedin.com/in/edward-jacobian-5a31456b" target="blank">
-            <img src={linkedinThumbnail} className="imageThumbnail"></img>
+            </a>{" "}
+            &ensp;
+            <a
+              href="https://www.linkedin.com/in/edward-jacobian-5a31456b"
+              target="blank"
+            >
+              <img src={linkedinThumbnail} className="imageThumbnail"></img>
             </a>
-          </div> 
+          </div>
           <div>
             <span>James Gauvreau</span>&ensp;
             <a href="https://github.com/JamesGauvreau" target="blank">
               <img src={githubThumbnail} className="imageThumbnail"></img>
-            </a> &ensp;
+            </a>{" "}
+            &ensp;
             <a href="https://www.linkedin.com/in/james-gauvreau" target="blank">
-            <img src={linkedinThumbnail} className="imageThumbnail"></img>
+              <img src={linkedinThumbnail} className="imageThumbnail"></img>
             </a>
-          </div>    
+          </div>
         </div>
       </div>
     </>

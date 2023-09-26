@@ -7,36 +7,36 @@ async function main() {
   await prisma.user.createMany({
     data: [
       {
-      username: `xXxDragonSlayerxXx`,
-      password: await bcryptjs.hash(`password`, 4),
-      isAdmin: true,
-    },
-    {
-      username: `Mudd`,
-      password: await bcryptjs.hash(`123`, 4),
-      isAdmin: false,
-    },
-    {
-      username: `BaileyBear`,
-      password: await bcryptjs.hash(`123`, 4),
-      isAdmin: false,
-    },
-  ],
+        username: `xXxDragonSlayerxXx`,
+        password: await bcryptjs.hash(`password`, 4),
+        isAdmin: true,
+      },
+      {
+        username: `Mudd`,
+        password: await bcryptjs.hash(`123`, 4),
+        isAdmin: false,
+      },
+      {
+        username: `BaileyBear`,
+        password: await bcryptjs.hash(`123`, 4),
+        isAdmin: false,
+      },
+    ],
   });
 
-//   // Saved games
-// await prisma.race.createMany({
-//   data: [
-//     {
-//       serializedData: '{"character":{"name":"Redd","race":"Human","class":"Assassin"}}',
-//       userId: 1,
-//     },
-//     {
-//       serializedData: '{"character":{"name":"Blue","race":"Orc","class":"Knight"}}',
-//       userId: 1,
-//     }
-//   ]
-// })
+  //   // Saved games
+  // await prisma.race.createMany({
+  //   data: [
+  //     {
+  //       serializedData: '{"character":{"name":"Redd","race":"Human","class":"Assassin"}}',
+  //       userId: 1,
+  //     },
+  //     {
+  //       serializedData: '{"character":{"name":"Blue","race":"Orc","class":"Knight"}}',
+  //       userId: 1,
+  //     }
+  //   ]
+  // })
 
   // Races
   await prisma.race.createMany({
@@ -107,6 +107,20 @@ async function main() {
     },
   });
 
+  const itemOgreTrousers = await prisma.item.create({
+    data: {
+      name: `A Pair of Dirty Trousers`,
+      description: `Daaaaam breh are there no showers in the swamps???`,
+    },
+  });
+
+  const itemWoodenRosary = await prisma.item.create({
+    data: {
+      name: `Wooden Rosary`,
+      description: `Huh didnt't know trees can be religious.`,
+    },
+  });
+
   // Choices
   const choiceRun = await prisma.choice.create({
     data: {
@@ -167,10 +181,28 @@ async function main() {
     },
   });
 
+  const monsterShrek = await prisma.monster.create({
+    data: {
+      name: `Mike Myers`,
+      hp: 35,
+      atk: 30,
+      dodge: 0,
+    },
+  });
+
+  const monsterGroot = await prisma.monster.create({
+    data: {
+      name: `DOM Toretto`,
+      hp: 24,
+      atk: 20,
+      dodge: 70, // Charger
+    },
+  });
+
   // Quests
   const questGetPie = await prisma.quest.create({
     data: {
-      name: `Get the Pi3!`,
+      name: `Get the 3.14!`,
       description: `There is a big bad orc in your way. That pie smells so good tho...`,
       completionMessage: `You got the pie!! Yum!`,
       failedMessage: `Waawaa no pie 4 u`,
@@ -186,6 +218,42 @@ async function main() {
     },
   });
 
+  const questDefeatTheOgre = await prisma.quest.create({
+    data: {
+      name: `Defeat the Ogre and you shall marry the princess`,
+      description: `... or so Lord Farquaad says. Why listen to the little man anyways?`,
+      completionMessage: `JK Lord Farquaad never meant to keep his word :/`,
+      failedMessage: `I heard he was a good monster anyways.`,
+      choices: {
+        connect: [choiceFight, choiceRun],
+      },
+      monsters: {
+        connect: [monsterShrek],
+      },
+      items: {
+        connect: [itemOgreTrousers],
+      },
+    },
+  });
+
+  const questTalkingTree = await prisma.quest.create({
+    data: {
+      name: `Stories of a talking tree circles through the galaxy`,
+      description: `I... Am.. GROOOOOOOOOT! uwu`,
+      completionMessage: `A tiny part of the tree Charges away at 1970 mph. wow!`,
+      failedMessage: `We. Are. Family`,
+      choices: {
+        connect: [choiceFight, choiceRun],
+      },
+      monsters: {
+        connect: [monsterGroot],
+      },
+      items: {
+        connect: [itemWoodenRosary],
+      },
+    },
+  });
+
   // Locations
   await prisma.location.createMany({
     data: [
@@ -194,34 +262,47 @@ async function main() {
         description: `All the comforts of home`,
         locationImg: `https://cdnb.artstation.com/p/assets/images/images/027/950/891/small/david-vaz-highresscreenshot00002.jpg`,
       },
-      {
-        name: `Misty Swamp`,
-        description: `A murky and treacherous wetland cloaked in mist, concealing both peril and mystique`,
-        locationImg: `https://cdna.artstation.com/p/assets/images/images/001/063/810/large/nicolas-chacin-pantanopantalla.jpg`
-      },
-      {
-        name: `North Forest`,
-        description: `A dense and mystical woodland teeming with ancient trees and hidden secrets`,
-        locationImg: `https://twistedsifter.com/wp-content/uploads/2019/04/mystical-by-nei-burnell-2.jpg`,
-      },
+
       {
         name: `Three Courtesans Market`,
         description: `A bustling market with merchants showcasing their exotic wares`,
-        locationImg: `https://storage.googleapis.com/pai-images/6410f6f42dd84829a7b25bf8f65ba543.jpeg`
+        locationImg: `https://storage.googleapis.com/pai-images/6410f6f42dd84829a7b25bf8f65ba543.jpeg`,
       },
       {
         name: `Eldoria Castle`,
         description: `The imposing castle stands tall with its grand wooden drawbridge at the entrance`,
-        locationImg: `https://rare-gallery.com/resol/1366x768/502322-fantasy-art.jpg`
+        locationImg: `https://rare-gallery.com/resol/1366x768/502322-fantasy-art.jpg`,
       },
       {
         name: `Eldoria Castle Interior`,
         description: `Explore the opulent grandeur of the Eldoria Castle's interior, adorned with majestic tapestries and shimmering chandeliers, where secrets and challenges await`,
-        locationImg: `https://wallpaperaccess.com/full/1274092.jpg`
+        locationImg: `https://wallpaperaccess.com/full/1274092.jpg`,
       },
     ],
   });
-  
+
+  await prisma.location.create({
+    data: {
+      name: `North Forest`,
+      description: `A dense and mystical woodland teeming with ancient trees and hidden secrets`,
+      locationImg: `https://twistedsifter.com/wp-content/uploads/2019/04/mystical-by-nei-burnell-2.jpg`,
+      quests: {
+        connect: [questTalkingTree],
+      },
+    },
+  });
+
+  await prisma.location.create({
+    data: {
+      name: `Misty Swamp`,
+      description: `A murky and treacherous wetland cloaked in mist, concealing both peril and mystique`,
+      locationImg: `https://cdna.artstation.com/p/assets/images/images/001/063/810/large/nicolas-chacin-pantanopantalla.jpg`,
+      quests: {
+        connect: [questDefeatTheOgre],
+      },
+    },
+  });
+
   await prisma.location.create({
     data: {
       name: `Black Thorn Tavern`,

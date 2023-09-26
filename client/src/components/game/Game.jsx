@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import Location from "./Location";
 
 const Game = () => {
   const [currentLocation, setCurrentLocation] = useState(``);
@@ -8,9 +8,8 @@ const Game = () => {
   const [map, setMap] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [gameData, setGameData] = useState(null);
-  const navigate = useNavigate(); // Import the useNavigate hook
 
-  console.log(gameData);
+  console.log(gameData)
 
   useEffect(() => {
     const localStorageData = JSON.parse(localStorage.getItem("gameData"));
@@ -38,61 +37,46 @@ const Game = () => {
     }
   };
 
-  const handleLocationChange = (event) => {
-    setSelectedLocationId(event.target.value);
-  };
-
-  const saveGame = () => {
+  const saveGame = async () => {
     try {
+      const token = localStorage.getItem(`token`);
+      const tokenArr = token.split(`.`);
+      const { id } = JSON.parse(atob(tokenArr[1]));
+
       localStorage.setItem("gameData", JSON.stringify(gameData));
+      const response = await fetch(`/api/saveData/${gameData.saveDataId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          serializedData: JSON.stringify(gameData),
+        }),
+      });
+
+      const result = await response.json();
+
+      console.log(result);
+
       alert("Game Successfully Saved!");
     } catch (error) {
       console.error("Error saving game data:", error);
     }
   };
 
-  const goToQuest = (questId) => {
-    // Use navigate to route to /quest
-    navigate(`/quest/${questId}`);
-  };
-
   return (
-    <div
-      className="main-game"
-      style={{ backgroundImage: `url(${currentLocation?.locationImg || ""})` }}
-    >
-      <div className="location-description">
-        {currentLocation ? (
-          <>
-            <div>
-              <h1>{currentLocation.name}</h1>
-              <p>{currentLocation.description}</p>
-            </div>
-          </>
-        ) : null}
-      </div>
-      {currentLocation.quests ? (
-        currentLocation.quests.length > 0 ? (
-          <section className="quest-container">
-            <h3>Quests</h3>
-            {currentLocation.quests.map((quest) => (
-              <section
-                key={quest.id}
-                className="quest"
-                onClick={() => goToQuest(quest.id)}
-              >
-                <p>{quest.name}</p>
-                <p>{quest.description}</p>
-              </section>
-            ))}
-          </section>
-        ) : null
-      ) : null}
+    <>
+      <Location
+        currentLocation={currentLocation}
+        gameData={gameData}
+        setGameData={setGameData}
+      />
       <div className="choice-buttons">
         <select
           id="locationSelect"
           name="location"
-          onChange={handleLocationChange}
+          onChange={(event) => setSelectedLocationId(event.target.value)}
           value={selectedLocationId}
         >
           <option value="">Select a Location</option>
@@ -106,7 +90,7 @@ const Game = () => {
         </button>
         <button onClick={saveGame}>Save Game</button>
       </div>
-    </div>
+    </>
   );
 };
 

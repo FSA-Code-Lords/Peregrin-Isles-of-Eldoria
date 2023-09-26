@@ -28,11 +28,30 @@ router.get(`/`, async (req, res) => {
   }
 });
 
-router.get(`/:id`, async (req, res) => {
+router.get(`/user/:id`, async (req, res) => {
   try {
-    const saveData = await prisma.save_Data.findMany({
+    const saveDatas = await prisma.save_Data.findMany({
       where: {
         userId: Number(req.params.id),
+      },
+    });
+
+    saveDatas
+      ? res.status(200).send(saveDatas)
+      : res.status(404).send({
+          error: true,
+          message: `Error getting save datas from that user`,
+        });
+  } catch (error) {
+    res.status(500).send({ error });
+  }
+});
+
+router.get(`/:id`, async (req, res) => {
+  try {
+    const saveData = await prisma.save_Data.findUnique({
+      where: {
+        id: Number(req.params.id),
       },
     });
 

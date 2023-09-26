@@ -2,23 +2,39 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const LoadGame = () => {
-  const [saveData, setSaveData] = useState([]);
+  const [saveDatas, setSaveDatas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     try {
-      const localStorageData = JSON.parse(localStorage.getItem("gameData"));
-      if (localStorageData) {
-        setSaveData([localStorageData]);
-      }
+      const tokenArr = localStorage.getItem(`token`).split(`.`);
+      const { id } = JSON.parse(atob(tokenArr[1]));
+
+      fetchSavedDatas(id);
+
       setIsLoading(false);
     } catch (error) {
       console.error("Error loading saved game data:", error);
       setIsLoading(false);
     }
   }, []);
+
+  const fetchSavedDatas = async (id) => {
+    try {
+      const response = await fetch(`/api/saveData/user/${id}`);
+      const result = await response.json();
+
+      const saveDataArr = result.map((saveData) =>
+        JSON.parse(saveData.serializedData)
+      );
+
+      setSaveDatas(saveDataArr);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // Function to load a saved game when a button is clicked
   const loadSavedGame = (savedGame) => {
@@ -35,15 +51,15 @@ const LoadGame = () => {
           <p>Loading saved games...</p>
         ) : (
           <ul>
-            {saveData.map((savedGame, index) => (
-              <div key={index}>
-                <h2>{savedGame.character.name}</h2>
-                <p>Race: {savedGame.character.race}</p>
-                <p>Class: {savedGame.character.class}</p>
-                {/* Add more details as needed */}
-                <button onClick={() => loadSavedGame(savedGame)}>
-                  Load Game
-                </button>
+            {saveDatas.map((savedGame, index) => (
+              <div
+                key={index}
+                className="loadGame"
+                onClick={() => loadSavedGame(savedGame)}
+              >
+                <span className="characterName">{savedGame.character.name}</span>
+                <span><b>Race</b>: {savedGame.character.race}</span>
+                <span><b>Class</b>: {savedGame.character.class}</span>
               </div>
             ))}
           </ul>

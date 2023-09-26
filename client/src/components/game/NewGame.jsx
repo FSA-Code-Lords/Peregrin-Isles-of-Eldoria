@@ -2,20 +2,23 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import characterImage from "../images/Warrior.png";
 
-
 const NewGame = () => {
   const baseStats = { hp: 20, atk: 10, dodge: 10 };
   const [characterName, setCharacterName] = useState(``);
-  const [characterClass, setCharacterClass] = useState({
+  const defaultCharacterClass = {
     hpChange: 0,
     atkChange: 0,
     dodgeChange: 0,
-  });
-  const [characterRace, setCharacterRace] = useState({
+  };
+  const defaultCharacterRace = {
     hpChange: 0,
     atkChange: 0,
     dodgeChange: 0,
-  });
+  };
+  const [characterClass, setCharacterClass] = useState(defaultCharacterClass);
+  const [characterRace, setCharacterRace] = useState(defaultCharacterRace);
+
+  
 
   const navigate = useNavigate();
 
@@ -139,6 +142,26 @@ const NewGame = () => {
     }
   };
 
+  const [selectedRace, setSelectedRace] = useState("0");
+  const [selectedClass, setSelectedClass] = useState("0");
+
+  const handleClick = (alt) => {
+    const [raceId, classId] = alt
+      .split(", ")
+      .map((value) => parseInt(value, 10));
+    setSelectedRace(raceId);
+    setSelectedClass(classId);
+  };
+
+  useEffect(() => {
+    if (selectedRace !== "0") {
+      fetchRace(selectedRace);
+    }
+    if (selectedClass !== "0") {
+      fetchClass(selectedClass);
+    }
+  }, [selectedRace, selectedClass]);
+
   return (
     <div className="formstyle">
       <div className="form-container">
@@ -158,6 +181,7 @@ const NewGame = () => {
             <select
               name="race"
               onChange={(event) => fetchRace(event.target.value)}
+              value={selectedRace.toString()}
             >
               <option>Choose Race</option>
               <option value="1">Human</option>
@@ -170,6 +194,7 @@ const NewGame = () => {
             <select
               name="class"
               onChange={(event) => fetchClass(event.target.value)}
+              value={selectedClass.toString()}
             >
               <option>Choose Class</option>
               <option value="1">Warrior</option>
@@ -199,7 +224,86 @@ const NewGame = () => {
           </section>
         ) : null}
         <div>
-          <img src={characterImage} alt="Classes and Races" id="characterImage"/>
+          <img
+            src={characterImage}
+            alt="Classes and Races"
+            id="characterImage"
+            useMap="#characterMap"
+          />
+          <map name="characterMap">
+            <area
+              shape="rect"
+              coords="82, 75, 242, 235"
+              alt="Human, Warrior"
+              onClick={() => handleClick("1, 1")}
+            />
+            <area
+              shape="rect"
+              coords="242, 75, 402, 235"
+              alt="Human, Assassin"
+              onClick={() => handleClick("1, 2")}
+            />
+            <area
+              shape="rect"
+              coords="402, 75, 562, 235"
+              alt="Human, Mage"
+              onClick={() => handleClick("1, 3")}
+            />
+            <area
+              shape="rect"
+              coords="562, 75, 722, 235"
+              alt="Human, Knight"
+              onClick={() => handleClick("1, 4")}
+            />
+            <area
+              shape="rect"
+              coords="82, 225, 242, 385"
+              alt="Orc, Warrior"
+              onClick={() => handleClick("3, 1")}
+            />
+            <area
+              shape="rect"
+              coords="242, 225, 402, 385"
+              alt="Orc, Assassin"
+              onClick={() => handleClick("3, 2")}
+            />
+            <area
+              shape="rect"
+              coords="402, 225, 562, 385"
+              alt="Orc, Mage"
+              onClick={() => handleClick("3, 3")}
+            />
+            <area
+              shape="rect"
+              coords="562, 225, 722, 385"
+              alt="Orc, Knight"
+              onClick={() => handleClick("3, 4")}
+            />
+            <area
+              shape="rect"
+              coords="82, 375, 242, 535"
+              alt="Elf, Warrior"
+              onClick={() => handleClick("2, 1")}
+            />
+            <area
+              shape="rect"
+              coords="242, 375, 402, 535"
+              alt="Elf, Assassin"
+              onClick={() => handleClick("2, 2")}
+            />
+            <area
+              shape="rect"
+              coords="402, 375, 562, 535"
+              alt="Elf, Mage"
+              onClick={() => handleClick("2, 3")}
+            />
+            <area
+              shape="rect"
+              coords="562, 375, 722, 535"
+              alt="Elf, Knight"
+              onClick={() => handleClick("2, 4")}
+            />
+          </map>
         </div>
       </div>
     </div>

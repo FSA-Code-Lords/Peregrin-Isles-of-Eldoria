@@ -24,26 +24,6 @@ const Home = ({ isLoggedIn }) => {
     }
   };
 
-  const handleNewUserClick = () => {
-    navigate("/register");
-  };
-
-  const handleCreditsClick = () => {
-    navigate("/credits");
-  };
-
-  const handleAboutClick = () => {
-    navigate("/about");
-  };
-
-  const handleLogInClick = () => {
-    navigate("/login");
-  };
-
-  const handleAdminClick = () => {
-    navigate("/admin");
-  };
-
   return (
     <>
       <div className="wall-sconces-logo-container">
@@ -72,22 +52,22 @@ const Home = ({ isLoggedIn }) => {
           </>
         ) : (
           <>
-            <button className="nav-button" onClick={handleNewUserClick}>
+            <button className="nav-button" onClick={() => navigate("/register")}>
               Register New User
             </button>
-            <button className="nav-button" onClick={handleLogInClick}>
+            <button className="nav-button" onClick={() => navigate("/login")}>
               Users Log In
             </button>
           </>
         )}
-        <button className="nav-button" onClick={handleAboutClick}>
+        <button className="nav-button" onClick={() => navigate("/about")}>
           About Game
         </button>
-        <button className="nav-button" onClick={handleCreditsClick}>
+        <button className="nav-button" onClick={( ) => navigate("/credits")}>
           Credits
         </button>
         {isAdmin ? (
-          <button className="nav-button" onClick={handleAdminClick}>
+          <button className="nav-button" onClick={() => navigate("/admin")}>
             Secret Admin Button
           </button>
         ) : null}

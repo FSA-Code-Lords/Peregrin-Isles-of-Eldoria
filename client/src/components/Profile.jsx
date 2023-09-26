@@ -22,7 +22,7 @@ const Profile = () => {
 
     Promise.all([
       fetch(`/api/users/${userId}`),
-      fetch('/api/saveData?userId=' + userId),
+      fetch(`/api/saveData/user/${userId}`),
     ])
       .then((responses) => Promise.all(responses.map((res) => res.json())))
       .then(([userDataResponse, savedGameDataResponse]) => {
@@ -62,6 +62,7 @@ const Profile = () => {
                           </>
                         )}
                       </div>
+                      <hr></hr>
                       <div>
                         <h4>Quests:</h4>
                         <div>

@@ -247,3 +247,48 @@ figure.mainlogo-container::after {
   height: 80%;
   margin-top: 15px;
 }
+
+.loadGame {
+  padding: 20px;
+}
+
+.characterName {
+  font-weight: bolder;
+  font-size: larger;
+}
+
+.loadGame > span {
+  padding: 10px;
+}
+
+/* .spacer {
+  height: 50px;
+} */
+
+#inventorySection {
+  background: rgba(255, 255, 255, 0.212);
+  backdrop-filter: blur(8px);
+  border: solid 3px bisque;
+  width: 50%;
+  padding: 10px;
+  height: fit-content;
+}
+
+#questLogSection {
+  background: rgba(255, 255, 255, 0.212);
+  backdrop-filter: blur(8px);
+  border: solid 3px bisque;
+  width: 50%;
+  padding: 10px;
+  height: fit-content;
+}
+
+#startTownSection {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  margin: auto;
+  font-size: large;
+  width: 700px;
+}

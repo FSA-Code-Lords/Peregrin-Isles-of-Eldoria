@@ -131,6 +131,7 @@ const Admin = () => {
         </section>
         <section id="userPage" className="flex">
           <h2>All Users</h2>
+          <hr></hr>
           {isAdmin ? (
             users.map((user) => (
               <section key={user.id}>
@@ -140,9 +141,6 @@ const Admin = () => {
                   <p>
                     <b>Save Files</b>
                   </p>
-                  <p>
-                    <i>Save files will go here.</i>
-                  </p>
                   <p>{}</p>
                   <button onClick={() => deleteHandler(user.id)}>
                     Delete User
@@ -151,6 +149,7 @@ const Admin = () => {
                   <br></br>
                   <p></p>
                 </section>
+                <hr></hr>
               </section>
             ))
           ) : (
@@ -163,7 +162,9 @@ const Admin = () => {
             saveData.map((saveData) => (
               <section key={saveData.id}>
                 <section>
-                  <h4>{saveData.character.name} (User #{saveData.userId})</h4>               
+                  <h4>
+                    {saveData.character.name} (User #{saveData.userId})
+                  </h4>
                   <p>Race: {saveData.character.race}</p>
                   <p>Class: {saveData.character.class}</p>
                   <button onClick={() => deleteGameHandler(saveData.id)}>

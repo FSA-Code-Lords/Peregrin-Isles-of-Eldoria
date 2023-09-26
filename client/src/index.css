@@ -243,8 +243,8 @@ figure.mainlogo-container::after {
 }
 
 #characterImage {
-  max-width: 1200px;
-  max-height: 500px;
+  width: 80%;
+  height: 80%;
   margin-top: 15px;
 }
 

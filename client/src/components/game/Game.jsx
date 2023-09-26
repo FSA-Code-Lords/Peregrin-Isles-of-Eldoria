@@ -79,7 +79,6 @@ const Game = () => {
           onChange={(event) => setSelectedLocationId(event.target.value)}
           value={selectedLocationId}
         >
-          <option value="">Select a Location</option>
           {locationOptions}
         </select>
         <button

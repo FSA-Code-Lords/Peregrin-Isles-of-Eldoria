@@ -9,8 +9,6 @@ const Game = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [gameData, setGameData] = useState(null);
 
-  console.log(gameData)
-
   useEffect(() => {
     const localStorageData = JSON.parse(localStorage.getItem("gameData"));
     const options = localStorageData.map.map((location) => (

@@ -18,6 +18,7 @@ const Location = ({ currentLocation, gameData, setGameData }) => {
         character: { ...gameData.character, hp: gameData.character.maxHp },
       });
 
+      localStorage.setItem(`gameData`, JSON.stringify(gameData));
       setIsHome(true);
     } else {
       setIsHome(false);

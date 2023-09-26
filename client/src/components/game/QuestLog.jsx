@@ -3,7 +3,6 @@ import { useState } from "react";
 const QuestLog = ({ gameData }) => {
   const [showQuests, setShowQuests] = useState(false);
 
-  console.log(gameData);
   return (
     <section id="questLogSection">
       <h2 onClick={() => setShowQuests(!showQuests)}>QuestLog</h2>

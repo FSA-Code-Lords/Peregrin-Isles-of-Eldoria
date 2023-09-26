@@ -47,10 +47,11 @@ const LoadGame = () => {
     <div className="formstyle">
       <div className="form-container">
         <h1>Load Game</h1>
+        <hr></hr>
         {isLoading ? (
           <p>Loading saved games...</p>
         ) : (
-          <ul>
+          <div>
             {saveDatas.map((savedGame, index) => (
               <div
                 key={index}
@@ -60,9 +61,10 @@ const LoadGame = () => {
                 <span className="characterName">{savedGame.character.name}</span>
                 <span><b>Race</b>: {savedGame.character.race}</span>
                 <span><b>Class</b>: {savedGame.character.class}</span>
+                <hr></hr>
               </div>
             ))}
-          </ul>
+          </div>
         )}
       </div>
     </div>

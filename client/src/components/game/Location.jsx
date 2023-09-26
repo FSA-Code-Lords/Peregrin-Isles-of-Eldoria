@@ -1,7 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Inventory from "./Inventory";
+import QuestLog from "./QuestLog";
 
 const Location = ({ currentLocation, gameData, setGameData }) => {
+  const [isHome, setIsHome] = useState(false);
   const navigate = useNavigate();
 
   const goToQuest = (questId) => {
@@ -10,11 +13,14 @@ const Location = ({ currentLocation, gameData, setGameData }) => {
 
   useEffect(() => {
     if (currentLocation.id === 1) {
-      console.log(gameData.character);
       setGameData({
         ...gameData,
         character: { ...gameData.character, hp: gameData.character.maxHp },
       });
+
+      setIsHome(true);
+    } else {
+      setIsHome(false);
     }
   }, [currentLocation]);
 
@@ -47,6 +53,12 @@ const Location = ({ currentLocation, gameData, setGameData }) => {
             ))}
           </section>
         ) : null
+      ) : null}
+      {isHome ? (
+        <section id="startTownSection">
+          <Inventory gameData={gameData} />
+          <QuestLog gameData={gameData} />
+        </section>
       ) : null}
     </div>
   );

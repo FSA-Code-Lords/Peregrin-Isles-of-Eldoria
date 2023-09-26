@@ -62,6 +62,7 @@ const Profile = () => {
                           </>
                         )}
                       </div>
+                      <hr></hr>
                       <div>
                         <h4>Quests:</h4>
                         <div>

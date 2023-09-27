@@ -8,7 +8,7 @@ const Inventory = ({ gameData }) => {
       <h2 onClick={() => setShowInventory(!showInventory)}>Inventory</h2>
       {showInventory ? <section>
         {gameData.inventory.map((item) => 
-          <section>
+          <section key={item.id}>
             <p><b>{item.name}</b></p>
             <p>{item.description}</p>
             <hr></hr>

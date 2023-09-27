@@ -35,6 +35,11 @@ const Game = () => {
     }
   };
 
+  // updates data when healed in start town
+  useEffect(() => {
+    localStorage.setItem(`gameData`, JSON.stringify(gameData));
+  }, [gameData]);
+
   const saveGame = async () => {
     try {
       const token = localStorage.getItem(`token`);

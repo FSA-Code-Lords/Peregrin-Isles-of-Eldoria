@@ -44,7 +44,7 @@ const Quest = () => {
   useEffect(() => {
     if (chosenMonster.name) {
       if (chosenMonster.hp > 0) {
-        if (saveState.character.hp < 0) {
+        if (saveState.character.hp <= 0) {
           setChoiceSelection([]);
           setMonsters([]);
 
@@ -133,9 +133,7 @@ const Quest = () => {
         setIsMyTurn(false);
       }
     } else if (choice.result.includes(`Sneaking`)) {
-      console.log(choice);
       const sneakChance = Math.floor(Math.random() * 4);
-      console.log(sneakChance);
       if (sneakChance < 1) {
         setLog(log + `_${choice.result} success!`);
       } else {

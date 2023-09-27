@@ -14,7 +14,8 @@
     "seed": "npx prisma migrate reset && node ./prisma/seed.js ",
     "client": "cd client && npm start" ,
     "clientNpmI": "cd client && npm i",
-    "installAll": "npm i && npm run clientNpmI"
+    "installAll": "npm i && npm run clientNpmI",
+    "server": "npm run seed && npm run server:dev"
   },
   "keywords": [],
   "author": "",

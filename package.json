@@ -12,10 +12,10 @@
     "server:dev": "nodemon ./server/index.js",
     "dev": "concurrently \"npm run client:dev\" \"npm run server:dev\"",
     "seed": "npx prisma migrate reset && node ./prisma/seed.js ",
-    "client": "cd client && npm start" ,
+    "client": "cd client && npm start",
     "clientNpmI": "cd client && npm i",
     "installAll": "npm i && npm run clientNpmI",
-    "server": "npm run seed && npm run server:dev"
+    "server": "node ./prisma/seed.js && npm run server:dev"
   },
   "keywords": [],
   "author": "",

@@ -24,6 +24,7 @@ router.get(`/`, async (req, res) => {
           .status(400)
           .send({ error: true, message: `Error getting save datas` });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ error });
   }
 });
@@ -43,6 +44,7 @@ router.get(`/user/:id`, async (req, res) => {
           message: `Error getting save datas from that user`,
         });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ error });
   }
 });
@@ -62,6 +64,7 @@ router.get(`/:id`, async (req, res) => {
           message: `Error getting save data by that id`,
         });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ error });
   }
 });
@@ -76,6 +79,7 @@ router.post(`/`, requireUser, async (req, res) => {
       .status(201)
       .send({ message: `Save data created`, saveData: newSaveData });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ message: `Error creating saveData`, error });
   }
 });
@@ -93,6 +97,7 @@ router.put(`/:id`, requireUser, async (req, res) => {
       .status(200)
       .send({ message: `Save data updated`, saveData: updateSaveData });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ message: `Error updating save data`, error });
   }
 });
@@ -107,6 +112,7 @@ router.delete(`/:id`, requireUser, async (req, res) => {
 
     res.status(200).send({ message: `Save data deleted` });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ message: `Error deleting save data`, error });
   }
 });

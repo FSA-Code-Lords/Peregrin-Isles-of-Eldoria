@@ -15,7 +15,7 @@
     "client": "cd client && npm start",
     "clientNpmI": "cd client && npm i",
     "installAll": "npm i && npm run clientNpmI",
-    "server": "node ./prisma/seed.js && npm run server:dev"
+    "server": "node ./server/index.js"
   },
   "keywords": [],
   "author": "",

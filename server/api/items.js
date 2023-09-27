@@ -11,6 +11,7 @@ router.get(`/`, async (req, res) => {
       ? res.status(200).send(allItems)
       : res.status(400).send({ error: true, message: `Error getting items` });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ error });
   }
 });
@@ -29,6 +30,7 @@ router.get(`/:id`, async (req, res) => {
           .status(404)
           .send({ error: true, message: `Error getting item by that id` });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ error });
   }
 });
@@ -41,6 +43,7 @@ router.post(`/`, requireAdmin, async (req, res) => {
 
     res.status(201).send({ message: `Item created`, item: newItem });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ message: `Error creating item`, error });
   }
 });
@@ -56,6 +59,7 @@ router.put(`/:id`, requireAdmin, async (req, res) => {
 
     res.status(200).send({ message: `Item updated`, item: updateItem });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ message: `Error updating item`, error });
   }
 });
@@ -70,6 +74,7 @@ router.delete(`/:id`, requireAdmin, async (req, res) => {
 
     res.status(200).send({ message: `Item deleted` });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ message: `Error deleting item`, error });
   }
 });

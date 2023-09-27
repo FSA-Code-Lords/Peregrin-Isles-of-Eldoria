@@ -19,6 +19,7 @@ router.get(`/`, async (req, res) => {
       ? res.status(200).send(allUsers)
       : res.status(400).send({ error: true, message: `Error getting users` });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ error });
   }
 });
@@ -44,6 +45,7 @@ router.get(`/:id`, async (req, res) => {
           .status(404)
           .send({ error: true, message: `Error getting user by that id` });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ error });
   }
 });
@@ -65,6 +67,7 @@ router.put(`/:id`, requireUser, async (req, res) => {
         .send({ message: `Not authorized to update user`, error: true });
     }
   } catch (error) {
+    console.error(error);
     res.status(500).send({ message: `Error updating user`, error });
   }
 });
@@ -98,6 +101,7 @@ router.delete(`/:id`, requireUser, async (req, res) => {
         .send({ message: `Not authorized to delete user`, error: true });
     }
   } catch (error) {
+    console.error(error);
     res.status(500).send({ message: `Error deleting user`, error });
   }
 });

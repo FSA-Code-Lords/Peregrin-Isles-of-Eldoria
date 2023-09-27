@@ -15,6 +15,7 @@ router.get(`/`, async (req, res) => {
       ? res.status(200).send(allChoices)
       : res.status(400).send({ error: true, message: `Error getting choices` });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ error });
   }
 });
@@ -36,6 +37,7 @@ router.get(`/:id`, async (req, res) => {
           .status(404)
           .send({ error: true, message: `Error getting choice by that id` });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ error });
   }
 });
@@ -48,6 +50,7 @@ router.post(`/`, requireAdmin, async (req, res) => {
 
     res.status(201).send({ message: `Choice created`, choice: newChoice });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ message: `Error creating choice`, error });
   }
 });
@@ -63,6 +66,7 @@ router.put(`/:id`, requireAdmin, async (req, res) => {
 
     res.status(200).send({ message: `Choice updated`, choice: updateChoice });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ message: `Error updating choice`, error });
   }
 });
@@ -77,6 +81,7 @@ router.delete(`/:id`, requireAdmin, async (req, res) => {
 
     res.status(200).send({ message: `Choice deleted` });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ message: `Error deleting choice`, error });
   }
 });

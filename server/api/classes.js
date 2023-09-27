@@ -11,6 +11,7 @@ router.get(`/`, async (req, res) => {
       ? res.status(200).send(allClasses)
       : res.status(400).send({ error: true, message: `Error getting classes` });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ error });
   }
 });
@@ -29,6 +30,7 @@ router.get(`/:id`, async (req, res) => {
           .status(404)
           .send({ error: true, message: `Error getting class by that id` });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ error });
   }
 });
@@ -41,6 +43,7 @@ router.post(`/`, requireAdmin, async (req, res) => {
 
     res.status(201).send({ message: `Class created`, class: newClass });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ message: `Error creating class`, error });
   }
 });
@@ -56,6 +59,7 @@ router.put(`/:id`, requireAdmin, async (req, res) => {
 
     res.status(200).send({ message: `Class updated`, class: updateClass });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ message: `Error updating class`, error });
   }
 });
@@ -70,6 +74,7 @@ router.delete(`/:id`, requireAdmin, async (req, res) => {
 
     res.status(200).send({ message: `Class deleted` });
   } catch (error) {
+    console.error(error);
     res.status(500).send({ message: `Error deleting class`, error });
   }
 });

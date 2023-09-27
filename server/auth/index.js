@@ -26,6 +26,7 @@ router.post("/register", async (req, res) => {
       res.status(400).send({ message: "Could not add User" });
     }
   } catch (error) {
+    console.error(error);
     res.status(500).send({ error });
   }
 });
@@ -50,6 +51,7 @@ router.post("/login", async (req, res) => {
       res.status(400).send({ message: "Invalid Login" });
     }
   } catch (error) {
+    console.error(error);
     res.status(500).send({ error });
   }
 });

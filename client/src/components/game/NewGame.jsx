@@ -132,6 +132,7 @@ const NewGame = () => {
         const response = await fetch(`/api/races/${id}`);
         const result = await response.json();
         setCharacterRace(result);
+        setSelectedRace(id);
       } catch (error) {
         console.log(error);
       }
@@ -150,6 +151,7 @@ const NewGame = () => {
         const response = await fetch(`/api/classes/${id}`);
         const result = await response.json();
         setCharacterClass(result);
+        setSelectedClass(id);
       } catch (error) {
         console.log(error);
       }
@@ -176,6 +178,8 @@ const NewGame = () => {
 
   const [selectedRace, setSelectedRace] = useState("0");
   const [selectedClass, setSelectedClass] = useState("0");
+
+  console.log(selectedRace);
 
   const handleClick = (alt) => {
     const [raceId, classId] = alt
